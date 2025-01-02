@@ -18,5 +18,6 @@ COPY . .
 RUN ng build
 
 # Serve the Angular app
-CMD ["npx", "http-server", "dist"]
+CMD ["ng", "serve", "--host", "0.0.0.0", "--port", "4200"]
+
 
