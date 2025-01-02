@@ -15,7 +15,7 @@ RUN npm install
 COPY . .
 
 # Build the Angular app
-RUN ng build --prod
+RUN ng build
 
 # Serve the Angular app
 CMD ["npx", "http-server", "dist"]
