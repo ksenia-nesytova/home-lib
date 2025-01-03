@@ -1,6 +1,7 @@
 version: "3.8"
 services:
   frontend:
+    container_name: homelib_front
     build:
       context: ./frontend
     ports:
@@ -9,6 +10,7 @@ services:
       - backend
 
   backend:
+    container_name: homelib_back
     build:
       context: ./backend
     ports:
@@ -23,6 +25,7 @@ services:
       - postgres
 
   postgres:
+    container_name: homelib_pg
     image: postgres
     environment:
       - POSTGRES_USER=${DB_USER}
