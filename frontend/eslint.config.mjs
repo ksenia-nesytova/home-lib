@@ -3,7 +3,6 @@ import path from "node:path";
 import {fileURLToPath} from "node:url";
 import js from "@eslint/js";
 import {FlatCompat} from "@eslint/eslintrc";
-import storybook from "eslint-plugin-storybook";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -20,7 +19,6 @@ export default [...compat.extends(
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:@angular-eslint/template/process-inline-templates",
 ),
-    ...storybook.configs["flat/recommended"],
     {
         languageOptions: {
             parser: tsParser,
@@ -85,6 +83,5 @@ export default [...compat.extends(
             "@angular-eslint/no-outputs-metadata-property": "error",
             "@angular-eslint/no-input-rename": "error",
             "@angular-eslint/no-output-rename": "error",
-        },
-        ignores: ["!.storybook"],
+        }
     }];
