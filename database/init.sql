@@ -13,15 +13,15 @@ CREATE TABLE media (
 
 CREATE TABLE media_types (
   id SERIAL PRIMARY KEY,
-  name VARCHAR(50) NOT NULL UNIQUE,
-  description TEXT
-);
+  name VARCHAR(50) NOT NULL UNIQUE
+  );
 
 
 CREATE TABLE tags (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL UNIQUE,
   parent_id INT,
+  category_id INT,
     CONSTRAINT fk_parent FOREIGN KEY (parent_id) REFERENCES tags(id) ON DELETE SET NULL
 );
 
@@ -38,6 +38,12 @@ CREATE TABLE media_tags (
   PRIMARY KEY (media_id, tag_id)
 );
 
+CREATE TABLE categories (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL UNIQUE,
+  description TEXT
+);
+
 CREATE TABLE languages (
   id SERIAL PRIMARY KEY,
   code VARCHAR(10) NOT NULL UNIQUE,    -- e.g., 'en', 'fr', 'es'
@@ -48,3 +54,7 @@ CREATE TABLE languages (
 CREATE INDEX idx_media_title ON media(title);
 CREATE INDEX idx_tags_name ON tags(name);
 CREATE INDEX idx_media_tags ON media_tags(media_id, tag_id);
+
+INSERT INTO media_types (name)
+VALUES 
+  ('book');
