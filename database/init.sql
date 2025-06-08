@@ -3,11 +3,11 @@ CREATE TABLE entities (
   title VARCHAR(255) NOT NULL,
   entities_type_id INT NOT NULL,
   creation_date DATE,
-  language_id INT,
+  original_language_id INT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (entities_type_id) REFERENCES entities_types(id),
-  FOREIGN KEY (language_id) REFERENCES languages(id) 
+  FOREIGN KEY (original_language_id) REFERENCES languages(id) 
 );
 
 
@@ -56,8 +56,9 @@ CREATE TABLE book_details (
   entities_id INT PRIMARY KEY,
   author VARCHAR(255),
   publisher VARCHAR(255),
-  publication_year INT,
+  publication_date DATE,
   edition VARCHAR(255),
+  language_id INT REFERENCES languages(id),
   FOREIGN KEY (entities_id) REFERENCES entities(id)
 );
 
