@@ -1,0 +1,56 @@
+@mixin hl-heading($level) {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+
+  @if $level ==1 {
+    font-size: 2rem;
+    color: var(--color-primary);
+  }
+
+  @else if $level ==2 {
+    font-size: 1.5rem;
+    color: var(--color-primary);
+  }
+
+  @else if $level ==3 {
+    font-size: 1.2rem;
+    color: var(--color-accent);
+  }
+
+  @else {
+    font-size: 1rem;
+    color: var(--color-text);
+  }
+}
+
+
+// Shared text style for paragraphs
+@mixin hl-paragraph {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--color-text);
+}
+
+// Shared tag pill
+@mixin hl-tag {
+  background-color: var(--color-accent);
+  color: var(--color-surface);
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  box-shadow: 0 0 4px rgba(106, 207, 199, 0.5);
+  user-select: none;
+}
+
+// Shared link style
+@mixin hl-link {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+
+  &:hover {
+    cursor: crosshair;
+    color: var(--color-accent);
+  }
+}

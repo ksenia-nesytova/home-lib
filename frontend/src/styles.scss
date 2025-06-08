@@ -1,1 +1,24 @@
-/* You can add global styles to this file, and also import other style files */
+@use 'styles/shared' as *;
+@use 'styles/theme';
+
+body {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1 {
+    @include hl-heading(1);
+}
+
+h2 {
+    @include hl-heading(2);
+}
+
+h3 {
+    @include hl-heading(3);
+}
+
+p {
+    @include hl-paragraph;
+}

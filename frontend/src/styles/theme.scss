@@ -1,0 +1,35 @@
+/* Light Theme */
+:root {
+  --color-background: #FAFAFA;
+  --color-surface: #FFFFFF;
+  --color-text: #222222;
+
+  --color-primary: #00BFFF;
+  /* Electric Blue */
+  --color-accent: #6ACFC7;
+  /* Muted Cyan */
+  --color-secondary: #FF8C00;
+  /* Warm Orange */
+  --color-pink: #FF69B4;
+  /* Hot Pink */
+
+  --color-neon: #00FF00;
+  /* 90s Tech Neon Green */
+  --color-purple: #A390F0;
+  /* Soft Purple */
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  --color-background: #121212;
+  --color-surface: #1E1E1E;
+  --color-text: #E0E0E0;
+
+  --color-primary: #00BFFF;
+  --color-accent: #6ACFC7;
+  --color-secondary: #FF8C00;
+  --color-pink: #FF69B4;
+
+  --color-neon: #00FF00;
+  --color-purple: #A390F0;
+}
