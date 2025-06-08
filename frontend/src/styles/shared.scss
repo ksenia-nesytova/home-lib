@@ -24,14 +24,40 @@
 }
 
 
-// Shared text style for paragraphs
+@mixin hl-card {
+  border-radius: 8px;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-accent);
+
+  max-width: 400px;
+  padding: 1rem 1.5rem;
+
+  @include hl-shadow;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 8px 16px rgba(0, 191, 255, 0.5);
+    border-color: var(--color-primary);
+  }
+}
+
+
+@mixin hl-shadow {
+  box-shadow: 0 4px 8px rgba(0, 191, 255, 0.2);
+}
+
 @mixin hl-paragraph {
   font-size: 1rem;
   line-height: 1.5;
   color: var(--color-text);
 }
 
-// Shared tag pill
+@mixin hl-hint {
+  font-size: 0.85rem;
+  color: var(--color-accent);
+}
+
 @mixin hl-tag {
   background-color: var(--color-accent);
   color: var(--color-surface);
@@ -42,7 +68,6 @@
   user-select: none;
 }
 
-// Shared link style
 @mixin hl-link {
   color: var(--color-primary);
   text-decoration: none;
@@ -53,4 +78,12 @@
     cursor: crosshair;
     color: var(--color-accent);
   }
+}
+
+@mixin hl-divider {
+  border: none;
+  height: 1px;
+  background-color: var(--color-accent);
+  opacity: 0.5;
+  margin: 1rem 0;
 }
