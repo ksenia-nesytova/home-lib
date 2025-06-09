@@ -1,0 +1,17 @@
+@use '../../../styles/shared';
+
+:host {
+    display: inline-block;
+    width: 100%;
+    cursor: pointer;
+}
+
+p {
+    cursor: pointer;
+    padding: 0.4rem 0.8rem;
+}
+
+input,
+textarea {
+    @include shared.hl-input;
+}

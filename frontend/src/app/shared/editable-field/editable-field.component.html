@@ -1,0 +1,14 @@
+@if (!isEditing()) {
+<p (click)="toggleEditMode()">{{value() || placeholder()}}</p>
+} @else {
+
+@switch (type()) {
+@case ('text') {
+<input type="text" [(ngModel)]="currentValue" (blur)="save()" (keydown.enter)="save()" [placeholder]="placeholder()" />
+}
+
+@case ('textarea') {
+<textarea [(ngModel)]="currentValue" (blur)="save()" (keydown.enter)="save()" [placeholder]="placeholder()"></textarea>
+}
+}
+}
