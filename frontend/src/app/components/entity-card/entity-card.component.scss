@@ -27,6 +27,8 @@
     &__label {
         font-weight: bold;
         color: var(--color-secondary);
+
+        display: inline-block;
     }
 
 
@@ -47,6 +49,7 @@
 
     &__footer-text {
         @include shared.hl-hint;
+        flex: 1;
     }
 
 
