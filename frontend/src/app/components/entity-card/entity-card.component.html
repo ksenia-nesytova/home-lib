@@ -1,18 +1,31 @@
 <article class="card">
     <img src="assets/cover.jpg" alt="Cover of The Tragedy of Julius Caesar" class="card__cover" />
 
-
     <header class="card__header">
         <h2>The Tragedy of Julius Caesar</h2>
-        <time>card added</time>
-        <p><strong>Author:</strong> William Shakespeare</p>
-        <p><strong>Media type:</strong> Play</p>
-        <p><strong>Creation date:</strong> 1599</p>
-        <p><strong>Language:</strong> English</p>
+        <time>{{card().dateAdded}}</time>
+        <div class="card__input-block">
+            <label class="card__label">Author:</label>
+            <app-editable-field [value]="card().author || ''" />
+        </div>
+        <div class="card__input-block">
+            <label class="card__label">Media type:</label>
+            <app-editable-field [value]="card().mediaType || ''" />
+        </div>
+
+        <div class="card__input-block">
+            <label class="card__label">Creation date:</label>
+            <app-editable-field [value]="card().creationDate || ''" />
+        </div>
+
+        <div class="card__input-block">
+            <label class="card__label">Language:</label>
+            <app-editable-field [value]="card().language || ''" />
+        </div>
     </header>
 
 
-    <section class="card__tags">
+    <section class="card__section">
         <h3>Tags</h3>
         <ul>
             <li>Tragedy</li>
@@ -23,20 +36,26 @@
     </section>
 
 
-    <section>
+    <section class="card__section">
         <h3>Description</h3>
-        <p>It's a play about conspiracy against Julius Caesar.</p>
+        <app-editable-field [value]="card().description || ''" [type]="'textarea'" />
     </section>
 
-    <section>
+    <section class="card__section">
         <h3>Notes</h3>
-        <p>My favorite performance was at the Globe. The betrayal themes feel very real to me.</p>
+        <app-editable-field [value]="card().notes || ''" [type]="'textarea'" />
     </section>
 
     <hr class="divider">
 
     <footer class="card__footer">
-        <p class="card__footer-text">Location: shelf B2</p>
-        <p class="card__footer-text">My rating: 4/5</p>
+        <div class="card__input-block card__footer-text">
+            Location: <app-editable-field [value]="card().location || ''" class="card__footer-text" />
+        </div>
+
+        <div class="card__input-block card__footer-text">
+            My rating: <app-editable-field [value]="card()?.rating?.toString() || ''" class="card__footer-text" />/5
+        </div>
+        <!-- <p class="card__footer-text">My rating: 4/5</p> -->
     </footer>
 </article>

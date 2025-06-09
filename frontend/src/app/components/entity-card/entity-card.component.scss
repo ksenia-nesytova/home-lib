@@ -12,9 +12,6 @@
 
     @include shared.hl-card;
 
-
-
-
     &__header {
         margin-bottom: 1rem;
 
@@ -25,27 +22,32 @@
             font-style: italic;
             margin-bottom: 0.5rem;
         }
-
-        p {
-            margin: 0.15rem 0;
-
-            strong {
-                color: var(--color-secondary); // Warm Orange for labels
-            }
-        }
     }
 
+    &__label {
+        font-weight: bold;
+        color: var(--color-secondary);
+    }
+
+
+    &__input-block {
+        display: flex;
+        flex-direction: row;
+
+        align-items: center;
+        gap: 4px;
+
+        @include shared.hl-paragraph;
+    }
 
     &__footer {
         display: flex;
         justify-content: space-between;
-        padding-top: 0.5rem;
     }
 
     &__footer-text {
         @include shared.hl-hint;
     }
-
 
 
     &__cover {
@@ -64,47 +66,25 @@
             filter: drop-shadow(0 0 6px var(--color-primary));
         }
     }
-}
 
+    &__section {
+        margin-bottom: 1rem;
 
+        h3 {
+            @include shared.hl-heading(3);
+            color: var(--color-primary);
+        }
 
-.card__tags {
-    margin-bottom: 1rem;
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            padding: 0;
+            list-style: none;
 
-    h3 {
-        @include shared.hl-heading(3);
-        color: var(--color-primary);
-    }
-
-    ul {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        padding: 0;
-        list-style: none;
-
-        li {
-            @include shared.hl-tag;
+            li {
+                @include shared.hl-tag;
+            }
         }
     }
-}
-
-section {
-    margin-bottom: 1rem;
-
-    h3 {
-
-        @include shared.hl-heading(3);
-        color: var(--color-primary);
-        margin-bottom: 0.4rem;
-    }
-
-    p {
-        font-size: 0.95rem;
-        line-height: 1.4;
-    }
-}
-
-p {
-    @include shared.hl-paragraph;
 }
