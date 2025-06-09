@@ -1,5 +1,7 @@
 @use 'styles/shared' as *;
 @use 'styles/theme';
+@use 'styles/normalize';
+@use 'styles/reset';
 
 body {
     background-color: var(--color-background);

@@ -80,6 +80,23 @@
   }
 }
 
+@mixin hl-input {
+  width: 100%;
+  font-size: inherit;
+  font-family: inherit;
+  border: 2px solid var(--color-accent);
+  border-radius: 4px;
+  padding: 0.4rem 0.8rem;
+
+  &:hover,
+  &:active,
+  &:focus {
+    border: 2px solid var(--color-secondary);
+    outline: none;
+    box-shadow: 0 0 4px rgba(235, 154, 3, 0.932);
+  }
+}
+
 @mixin hl-divider {
   border: none;
   height: 1px;
