@@ -13,7 +13,9 @@
     @include shared.hl-card;
 
     &__header {
-        margin-bottom: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
 
         @include shared.hl-heading(2);
 
@@ -45,6 +47,7 @@
     &__footer {
         display: flex;
         justify-content: space-between;
+        gap: 8px;
     }
 
     &__footer-text {

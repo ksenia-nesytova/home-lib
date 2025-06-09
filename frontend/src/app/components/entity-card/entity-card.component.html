@@ -2,7 +2,7 @@
     <img src="assets/cover.jpg" alt="Cover of The Tragedy of Julius Caesar" class="card__cover" />
 
     <header class="card__header">
-        <h2>The Tragedy of Julius Caesar</h2>
+        <h2><app-editable-field [value]="card().title || ''" /></h2>
         <time>{{card().dateAdded}}</time>
         <div class="card__input-block">
             <label class="card__label">Author:</label>
