@@ -1,5 +1,5 @@
 <article class="card">
-    <img src="assets/cover.jpg" alt="Cover of The Tragedy of Julius Caesar" class="card__cover" />
+    <img [src]="card().coverImage" alt="Cover of The Tragedy of Julius Caesar" class="card__cover" />
 
     <header class="card__header">
         <h2><app-editable-field [value]="card().title || ''" /></h2>
