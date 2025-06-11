@@ -87,6 +87,8 @@
   border: 2px solid var(--color-accent);
   border-radius: 4px;
 
+  background-color: inherit;
+
   &:hover,
   &:active,
   &:focus {
@@ -102,4 +104,17 @@
   background-color: var(--color-accent);
   opacity: 0.5;
   margin: 1rem 0;
+}
+
+input,
+textarea,
+select {
+  @include hl-input;
+}
+
+option {
+  font-family: inherit;
+  font-size: inherit;
+  color: var(--color-primary);
+  background: var(--color-background);
 }

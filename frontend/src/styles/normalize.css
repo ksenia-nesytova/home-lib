@@ -166,6 +166,10 @@ textarea {
   font-size: 100%; /* 1 */
   line-height: 1.15; /* 1 */
   margin: 0; /* 2 */
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none; 
 }
 
 /**
