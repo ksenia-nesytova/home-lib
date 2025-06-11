@@ -1,4 +1,4 @@
-import { Component, input, InputSignal } from '@angular/core';
+import { Component, input, InputSignal, signal, WritableSignal } from '@angular/core';
 import { EditableFieldComponent } from '../../shared/editable-field/editable-field.component';
 import { Card } from '../../shared/models/Card';
 import { MediaType } from '../../shared/enums/media-type';
@@ -40,15 +40,17 @@ export class EntityCardComponent {
   };
 
   protected card: InputSignal<Card> = input(this.mockCardData);
+  protected currentCard: WritableSignal<Card> = signal(this.card());
+
 
   protected updateField(fieldName: string, newValue: string): void {
-    // this.card.set({ ...this.card, [fieldName]: newValue });
+    this.currentCard.set({ ...this.currentCard(), [fieldName]: newValue });
 
     // Optionally: Save immediately to backend
     // this.cardService.updateCardField(this.card.id, fieldName, newValue).subscribe();
   }
 
   protected onMediaTypeChange(mediaType: string) {
-    console.log(mediaType);
+    this.currentCard.set({ ...this.currentCard(), mediaType: mediaType as MediaType });
   }
 }

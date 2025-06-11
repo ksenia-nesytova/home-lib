@@ -1,28 +1,32 @@
 <article class="card">
-    <img [src]="card().coverImage" alt="Cover of The Tragedy of Julius Caesar" class="card__cover" />
+    <img [src]="currentCard().coverImage" alt="Cover of The Tragedy of Julius Caesar" class="card__cover" />
 
     <header class="card__header">
-        <h2><app-editable-field [value]="card().title || ''" /></h2>
-        <time>{{card().dateAdded}}</time>
+        <h2>
+            <app-editable-field [value]="currentCard().title || ''" (valueChange)="updateField('title', $event)" />
+        </h2>
+        <time>{{currentCard().dateAdded}}</time>
         <div class="card__input-block">
             <label class="card__label">Author:</label>
-            <app-editable-field [value]="card().author || ''" />
+            <app-editable-field [value]="currentCard().author || ''" (valueChange)="updateField('author', $event)" />
         </div>
         <div class="card__input-block">
             <label class="card__label">Media type:</label>
 
-            <app-editable-select [options]="MEDIA_OPTIONS" [value]="card().mediaType"
+            <app-editable-select [options]="MEDIA_OPTIONS" [value]="currentCard().mediaType"
                 (valueChange)="onMediaTypeChange($event)" />
         </div>
 
         <div class="card__input-block">
             <label class="card__label">Creation date:</label>
-            <app-editable-field [value]="card().creationDate || ''" />
+            <app-editable-field [value]="currentCard().creationDate || ''"
+                (valueChange)="updateField('creationDate', $event)" />
         </div>
 
         <div class="card__input-block">
             <label class="card__label">Language:</label>
-            <app-editable-field [value]="card().language || ''" />
+            <app-editable-field [value]="currentCard().language || ''"
+                (valueChange)="updateField('language', $event)" />
         </div>
     </header>
 
@@ -40,23 +44,27 @@
 
     <section class="card__section">
         <h3>Description</h3>
-        <app-editable-field [value]="card().description || ''" [type]="'textarea'" />
+        <app-editable-field [value]="currentCard().description || ''" [type]="'textarea'"
+            (valueChange)="updateField('description', $event)" />
     </section>
 
     <section class="card__section">
         <h3>Notes</h3>
-        <app-editable-field [value]="card().notes || ''" [type]="'textarea'" />
+        <app-editable-field [value]="currentCard().notes || ''" [type]="'textarea'"
+            (valueChange)="updateField('notes', $event)" />
     </section>
 
     <hr class="divider">
 
     <footer class="card__footer">
         <div class="card__input-block card__footer-text">
-            Location: <app-editable-field [value]="card().location || ''" class="card__footer-text" />
+            Location: <app-editable-field [value]="currentCard().location || ''" class="card__footer-text"
+                (valueChange)="updateField('location', $event)" />
         </div>
 
         <div class="card__input-block card__footer-text">
-            My rating: <app-editable-field [value]="card()?.rating?.toString() || ''" class="card__footer-text" />/5
+            My rating: <app-editable-field [value]="currentCard()?.rating?.toString() || ''" class="card__footer-text"
+                (valueChange)="updateField('rating', $event)" />/5
         </div>
         <!-- <p class="card__footer-text">My rating: 4/5</p> -->
     </footer>
