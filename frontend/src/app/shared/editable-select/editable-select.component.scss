@@ -1,0 +1,12 @@
+@use '../../../styles/shared';
+
+:host {
+    display: inline-block;
+    width: 100%;
+    cursor: pointer;
+    flex: 1;
+}
+
+p {
+    cursor: pointer;
+}

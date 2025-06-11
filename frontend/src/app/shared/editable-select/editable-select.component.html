@@ -1,0 +1,9 @@
+@if (!isEditing()) {
+<p (click)="toggleEditMode()">{{currentValue() || placeholder()}}</p>
+} @else {
+<select [(ngModel)]="currentValue" (blur)="onBlur()">
+    @for (option of options(); track $index) {
+    <option [value]="option">{{option}}</option>
+    }
+</select>
+}
