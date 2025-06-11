@@ -10,8 +10,3 @@
 p {
     cursor: pointer;
 }
-
-input,
-textarea {
-    @include shared.hl-input;
-}

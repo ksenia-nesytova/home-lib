@@ -10,7 +10,9 @@
         </div>
         <div class="card__input-block">
             <label class="card__label">Media type:</label>
-            <app-editable-field [value]="card().mediaType || ''" />
+
+            <app-editable-select [options]="MEDIA_OPTIONS" [value]="card().mediaType"
+                (valueChange)="onMediaTypeChange($event)" />
         </div>
 
         <div class="card__input-block">
