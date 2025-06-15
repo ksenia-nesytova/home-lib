@@ -1,0 +1,35 @@
+@use '../../../styles/shared';
+
+.stars {
+    display: inline-flex;
+    gap: 0.25rem;
+}
+
+.star {
+    font-size: 2rem;
+    // color: var(--color-neon);
+    color: var(--color-dead-pixel);
+    transition: color 0.2s ease-in-out;
+
+    filter: brightness(0.6);
+    opacity: 0.6;
+
+    cursor: pointer;
+
+    &_filled {
+        color: var(--color-neon);
+        filter: brightness(1);
+        opacity: 1;
+        text-shadow:
+            0 0 2px var(--color-neon),
+            0 0 4px var(--color-neon);
+
+    }
+
+    &:hover {
+        transform: scale(1.2);
+        text-shadow:
+            0 0 3px var(--color-neon),
+            0 0 6px var(--color-neon);
+    }
+}
