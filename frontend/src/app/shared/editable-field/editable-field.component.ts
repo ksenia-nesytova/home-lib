@@ -11,6 +11,8 @@ import { FormsModule } from '@angular/forms';
 })
 export class EditableFieldComponent {
 
+  public isEditable: InputSignal<boolean> = input(true);
+
   public value: InputSignal<string> = input('');
   public placeholder: InputSignal<string> = input('Click to edit');
   public type = input<'text' | 'textarea'>('text');
@@ -32,8 +34,10 @@ export class EditableFieldComponent {
 
 
   protected toggleEditMode(): void {
-    this.isEditing.set(true);
-    this.currentValue.set(this.value());
+    if (this.isEditable()) {
+      this.isEditing.set(true);
+      this.currentValue.set(this.value());
+    }
   }
 
   protected save(): void {

@@ -9,7 +9,7 @@ import { Component, effect, input, InputSignal, output, signal, WritableSignal }
 export class StarRatingComponent {
   public maxRating: InputSignal<number> = input(5);
   public inputRating: InputSignal<number> = input(0);
-  public isReadOnly = input<boolean>(false);
+  public isEditable = input<boolean>(true);
   public valueChange = output<number>();
 
   protected currentRating: WritableSignal<number> = signal(0);
@@ -19,16 +19,13 @@ export class StarRatingComponent {
 
   constructor() {
     effect(() => {
-      if (!this.isReadOnly()) {
-        this.currentRating.set(this.inputRating());
-        this.stars = Array(this.maxRating()).fill(0);
-
-      }
+      this.currentRating.set(this.inputRating());
+      this.stars = Array(this.maxRating()).fill(0);
     });
   }
 
   protected hover(value: number) {
-    if (!this.isReadOnly()) {
+    if (this.isEditable()) {
       this.hoveredOver = value;
     }
   }
@@ -38,7 +35,7 @@ export class StarRatingComponent {
   }
 
   protected save(value: number) {
-    if (!this.isReadOnly()) {
+    if (this.isEditable()) {
       this.currentRating.set(value);
       this.valueChange.emit(this.currentRating());
     }

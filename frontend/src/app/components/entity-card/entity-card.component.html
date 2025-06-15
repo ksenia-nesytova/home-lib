@@ -3,29 +3,31 @@
 
     <header class="card__header">
         <h2>
-            <app-editable-field [value]="currentCard().title || ''" (valueChange)="updateField('title', $event)" />
+            <app-editable-field [value]="currentCard().title || ''" [isEditable]="isEditable()"
+                (valueChange)="updateField('title', $event)" />
         </h2>
         <time>{{currentCard().dateAdded}}</time>
         <div class="card__input-block">
             <label class="card__label">Author:</label>
-            <app-editable-field [value]="currentCard().author || ''" (valueChange)="updateField('author', $event)" />
+            <app-editable-field [value]="currentCard().author || ''" [isEditable]="isEditable()"
+                (valueChange)="updateField('author', $event)" />
         </div>
         <div class="card__input-block">
             <label class="card__label">Media type:</label>
 
-            <app-editable-select [options]="MEDIA_OPTIONS" [value]="currentCard().mediaType"
+            <app-editable-select [options]="MEDIA_OPTIONS" [value]="currentCard().mediaType" [isEditable]="isEditable()"
                 (valueChange)="onMediaTypeChange($event)" />
         </div>
 
         <div class="card__input-block">
             <label class="card__label">Creation date:</label>
-            <app-editable-field [value]="currentCard().creationDate || ''"
+            <app-editable-field [value]="currentCard().creationDate || ''" [isEditable]="isEditable()"
                 (valueChange)="updateField('creationDate', $event)" />
         </div>
 
         <div class="card__input-block">
             <label class="card__label">Language:</label>
-            <app-editable-field [value]="currentCard().language || ''"
+            <app-editable-field [value]="currentCard().language || ''" [isEditable]="isEditable()"
                 (valueChange)="updateField('language', $event)" />
         </div>
     </header>
@@ -33,19 +35,20 @@
 
     <section class="card__section">
         <h3>Tags</h3>
-        <app-tag-list [tags]="currentCard().tags" (tagsChange)="updateField('tags', $event)" />
+        <app-tag-list [tags]="currentCard().tags" [isEditable]="isEditable()"
+            (tagsChange)="updateField('tags', $event)" />
     </section>
 
 
     <section class="card__section">
         <h3>Description</h3>
-        <app-editable-field [value]="currentCard().description || ''" [type]="'textarea'"
+        <app-editable-field [value]="currentCard().description || ''" [type]="'textarea'" [isEditable]="isEditable()"
             (valueChange)="updateField('description', $event)" />
     </section>
 
     <section class="card__section">
         <h3>Notes</h3>
-        <app-editable-field [value]="currentCard().notes || ''" [type]="'textarea'"
+        <app-editable-field [value]="currentCard().notes || ''" [type]="'textarea'" [isEditable]="isEditable()"
             (valueChange)="updateField('notes', $event)" />
     </section>
 
@@ -54,12 +57,12 @@
     <footer class="card__footer">
         <div class="card__input-block card__footer-text">
             Location: <app-editable-field [value]="currentCard().location || ''" class="card__footer-text"
-                (valueChange)="updateField('location', $event)" />
+                [isEditable]="isEditable()" (valueChange)="updateField('location', $event)" />
         </div>
 
         <div class="card__input-block">
             <p class="card__footer-text">My rating:</p>
-            <app-star-rating [isReadOnly]="false" [inputRating]="currentCard()?.rating || 0" [maxRating]="5"
+            <app-star-rating [isEditable]="isEditable()" [inputRating]="currentCard()?.rating || 0" [maxRating]="5"
                 (valueChange)="updateField('rating', $event)" />
         </div>
     </footer>

@@ -1,5 +1,5 @@
 @if (!isEditing()) {
-<p (click)="toggleEditMode()">{{value() || placeholder()}}</p>
+<p (click)="toggleEditMode()" [class.non-editable]="!isEditable()">{{value() || placeholder()}}</p>
 } @else {
 
 @switch (type()) {

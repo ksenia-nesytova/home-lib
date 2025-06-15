@@ -46,6 +46,7 @@ export class EntityCardComponent {
   protected card: InputSignal<Card> = input(this.mockCardData);
   protected currentCard: WritableSignal<Card> = signal(this.card());
 
+  public isEditable: InputSignal<boolean> = input(true);
 
   protected updateField(fieldName: string, newValue: string | number | string[]): void {
     this.currentCard.set({ ...this.currentCard(), [fieldName]: newValue });

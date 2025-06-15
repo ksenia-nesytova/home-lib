@@ -1,7 +1,7 @@
 <div class="stars">
     @for (star of stars; track $index) {
-    <span class="star" [class.star_filled]="fill($index)" (click)="save($index + 1)" (mouseenter)="hover($index + 1)"
-        (mouseleave)="hover(0)">
+    <span class="star" [class.non-editable]="!isEditable()" [class.star_filled]="fill($index)"
+        (click)="save($index + 1)" (mouseenter)="hover($index + 1)" (mouseleave)="hover(0)">
         <!-- ★ -->
         *
     </span>

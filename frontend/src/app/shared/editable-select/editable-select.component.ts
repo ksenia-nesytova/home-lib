@@ -9,6 +9,8 @@ import { FormsModule } from '@angular/forms';
 })
 export class EditableSelectComponent {
 
+  public isEditable: InputSignal<boolean> = input(true);
+
   public value: InputSignal<string> = input('');
   public placeholder: InputSignal<string> = input('Click to edit');
   public options: InputSignal<string[]> = input<string[]>([]);
@@ -28,8 +30,10 @@ export class EditableSelectComponent {
 
 
   protected toggleEditMode(): void {
-    this.isEditing.set(true);
-    this.currentValue.set(this.value());
+    if (this.isEditable()) {
+      this.isEditing.set(true);
+      this.currentValue.set(this.value());
+    }
   }
 
   protected onBlur(): void {
