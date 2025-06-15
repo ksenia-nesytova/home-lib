@@ -47,6 +47,4 @@ export class EditableFieldComponent {
     this.isEditing.set(false);
     this.currentValue.set(this.value());
   }
-
-
 }

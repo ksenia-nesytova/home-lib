@@ -33,12 +33,7 @@
 
     <section class="card__section">
         <h3>Tags</h3>
-        <ul>
-            <li>Tragedy</li>
-            <li>Shakespeare</li>
-            <li>Julius Caesar</li>
-            <li>Brutus</li>
-        </ul>
+        <app-tag-list [tags]="currentCard().tags" (tagsChange)="updateField('tags', $event)" />
     </section>
 
 

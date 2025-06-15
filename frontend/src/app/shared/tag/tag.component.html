@@ -1,0 +1,6 @@
+<li class="tag" (click)="onClick()">
+    {{value()}}
+    @if (isRemovable()) {
+    <button class="tag__remove" (click)="onRemove($event)">✕</button>
+    }
+</li>

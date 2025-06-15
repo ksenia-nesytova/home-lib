@@ -5,6 +5,7 @@ import { MediaType } from '../../shared/enums/media-type';
 import { FormsModule } from '@angular/forms';
 import { EditableSelectComponent } from '../../shared/editable-select/editable-select.component';
 import { StarRatingComponent } from '../../shared/star-rating/star-rating.component';
+import { TagListComponent } from '../../shared/tag-list/tag-list.component';
 
 @Component({
   selector: 'app-entity-card',
@@ -12,7 +13,8 @@ import { StarRatingComponent } from '../../shared/star-rating/star-rating.compon
     EditableFieldComponent,
     FormsModule,
     EditableSelectComponent,
-    StarRatingComponent
+    StarRatingComponent,
+    TagListComponent
   ],
   templateUrl: './entity-card.component.html',
   styleUrl: './entity-card.component.scss'
@@ -45,7 +47,7 @@ export class EntityCardComponent {
   protected currentCard: WritableSignal<Card> = signal(this.card());
 
 
-  protected updateField(fieldName: string, newValue: string | number): void {
+  protected updateField(fieldName: string, newValue: string | number | string[]): void {
     this.currentCard.set({ ...this.currentCard(), [fieldName]: newValue });
 
     // Optionally: Save immediately to backend

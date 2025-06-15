@@ -54,7 +54,6 @@
         flex: 1;
     }
 
-
     &__cover {
         display: block;
         width: 100%;
@@ -80,16 +79,5 @@
             color: var(--color-primary);
         }
 
-        ul {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            padding: 0;
-            list-style: none;
-
-            li {
-                @include shared.hl-tag;
-            }
-        }
     }
 }

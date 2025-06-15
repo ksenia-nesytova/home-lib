@@ -1,0 +1,14 @@
+<ul class="tag-list">
+    @for (tag of tags(); track $index) {
+    <app-tag [value]="tag" [isRemovable]="isEditable()" (removed)="removeTag(tag)" />
+    }
+
+    @if (isEditable()) {
+
+    @if (showAddInput) {
+    <app-editable-field [value]="''" [placeholder]="'Start typing...'" (valueChange)="addTag($event)" />
+    } @else {
+    <li (click)="showAddInput = true">+</li>
+    }
+    }
+</ul>
