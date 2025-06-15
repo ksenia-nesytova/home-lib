@@ -62,10 +62,10 @@
                 (valueChange)="updateField('location', $event)" />
         </div>
 
-        <div class="card__input-block card__footer-text">
-            My rating: <app-editable-field [value]="currentCard()?.rating?.toString() || ''" class="card__footer-text"
-                (valueChange)="updateField('rating', $event)" />/5
+        <div class="card__input-block">
+            <p class="card__footer-text">My rating:</p>
+            <app-star-rating [isReadOnly]="false" [inputRating]="currentCard()?.rating || 0" [maxRating]="5"
+                (valueChange)="updateField('rating', $event)" />
         </div>
-        <!-- <p class="card__footer-text">My rating: 4/5</p> -->
     </footer>
 </article>
