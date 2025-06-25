@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { EditableSelectComponent } from '../../shared/editable-select/editable-select.component';
 import { StarRatingComponent } from '../../shared/star-rating/star-rating.component';
 import { TagListComponent } from '../../shared/tag-list/tag-list.component';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-entity-card',
@@ -14,7 +15,8 @@ import { TagListComponent } from '../../shared/tag-list/tag-list.component';
     FormsModule,
     EditableSelectComponent,
     StarRatingComponent,
-    TagListComponent
+    TagListComponent,
+    DatePipe
   ],
   templateUrl: './entity-card.component.html',
   styleUrl: './entity-card.component.scss'

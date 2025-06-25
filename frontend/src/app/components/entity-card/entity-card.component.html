@@ -6,7 +6,7 @@
             <app-editable-field [value]="currentCard().title || ''" [isEditable]="isEditable()"
                 (valueChange)="updateField('title', $event)" />
         </h2>
-        <time>{{currentCard().dateAdded}}</time>
+        <!-- <time>{{currentCard().dateAdded | date:'mediumDate' }}</time> -->
         <div class="card__input-block">
             <label class="card__label">Author:</label>
             <app-editable-field [value]="currentCard().author || ''" [isEditable]="isEditable()"
@@ -62,7 +62,7 @@
 
         <div class="card__input-block">
             <p class="card__footer-text">My rating:</p>
-            <app-star-rating [isEditable]="isEditable()" [inputRating]="currentCard()?.rating || 0" [maxRating]="5"
+            <app-star-rating [isEditable]="isEditable()" [inputRating]="currentCard().rating || 0" [maxRating]="5"
                 (valueChange)="updateField('rating', $event)" />
         </div>
     </footer>
