@@ -1,5 +1,5 @@
 # Use official Node.js 20 LTS image
-FROM node:20
+FROM node:22
 
 # Set working directory
 WORKDIR /app
