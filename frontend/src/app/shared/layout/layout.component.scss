@@ -1,0 +1,107 @@
+.layout-wrapper {
+    display: grid;
+    grid-template-rows: 50px 1fr 40px;
+    grid-template-columns: 220px 1fr;
+    grid-template-areas:
+        "header header"
+        "nav main"
+        "footer footer";
+    height: 100vh;
+    border: 3px solid var(--color-primary);
+    border-radius: 8px;
+    background: var(--color-background);
+    color: var(--color-text);
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    /* Glow effect */
+    box-shadow:
+        0 0 8px 2px var(--color-primary),
+        inset 0 0 12px 2px var(--color-accent);
+}
+
+.app-header {
+    grid-area: header;
+    background: var(--color-surface);
+    border-bottom: 3px solid var(--color-primary);
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 1.3rem;
+    color: var(--color-primary);
+    text-shadow: 0 0 4px var(--color-neon);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--color-primary);
+    padding: 6px 10px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    font-weight: 600;
+    text-shadow: 0 0 2px var(--color-neon);
+}
+
+.nav-link:hover {
+    background-color: var(--color-accent);
+    color: var(--color-surface);
+    text-shadow: none;
+}
+
+.app-nav {
+    grid-area: nav;
+    background: var(--color-surface);
+    border-right: 3px solid var(--color-secondary);
+    padding: 18px 16px;
+    overflow-y: auto;
+    font-weight: 600;
+    color: var(--color-secondary);
+    text-shadow: 0 0 2px var(--color-pink);
+}
+
+.app-nav ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.app-nav li a {
+    color: var(--color-secondary);
+    text-decoration: none;
+    display: block;
+    padding: 6px 8px;
+    border-radius: 3px;
+    transition: background-color 0.2s ease;
+}
+
+.app-nav li a:hover {
+    background-color: var(--color-pink);
+    color: var(--color-surface);
+    text-shadow: 0 0 3px var(--color-neon);
+}
+
+.app-main {
+    grid-area: main;
+    padding: 28px;
+    overflow-y: auto;
+    background: var(--color-surface);
+    /* No border to avoid conflicting with outer wrapper */
+}
+
+.app-footer {
+    grid-area: footer;
+    border-top: 3px solid var(--color-primary);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+    color: var(--color-primary);
+    text-shadow: 0 0 3px var(--color-neon);
+}
