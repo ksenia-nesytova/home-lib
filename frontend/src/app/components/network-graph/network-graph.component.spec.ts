@@ -10,7 +10,7 @@ describe('NetworkGraphComponent', () => {
     await TestBed.configureTestingModule({
       imports: [NetworkGraphComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(NetworkGraphComponent);
     component = fixture.componentInstance;
