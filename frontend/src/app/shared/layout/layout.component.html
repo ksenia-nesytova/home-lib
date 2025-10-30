@@ -1,29 +1,11 @@
 <div class="layout">
-    <header class="layout__header">
-        <div class="logo">MyLibrary</div>
-        <nav class="nav__links">
-            <a href="#" class="nav__link">Home</a>
-            <a href="#" class="nav__link">Collections</a>
-            <a href="#" class="nav__link">Profile</a>
-        </nav>
-    </header>
+    <app-header id="header" />
 
-    <nav class="side-nav">
-        <h3>Folders</h3>
-        <ul class="side-nav__links">
-            <a href="#" class="side-nav__link">All Cards</a>
-            <a href="#" class="side-nav__link">Favorites</a>
-            <a href="#" class="side-nav__link">Fiction</a>
-            <a href="#" class="side-nav__link">Non-fiction</a>
-        </ul>
-    </nav>
+    <app-side-nav id="sidenav" />
 
-    <main class="main">
+    <main id="main">
         <ng-content></ng-content>
     </main>
 
-    <footer class="footer">
-        <span>© 2025 elsewise</span>
-        <span>Version 0.1</span>
-    </footer>
+    <app-footer id="footer" />
 </div>
