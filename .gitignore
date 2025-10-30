@@ -1,3 +1,7 @@
 .env
-jsconfig.json
-node_modules
+
+# Deps
+/node_modules
+
+# VS Code
+.vscode/*
