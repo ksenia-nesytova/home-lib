@@ -7,6 +7,7 @@ body {
     background-color: var(--color-background);
     color: var(--color-text);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.5;
 }
 
 h1 {
@@ -21,7 +22,27 @@ h3 {
     @include hl-heading(3);
 }
 
+a {
+    @include hl-link;
+}
+
+input,
+textarea,
+select {
+    @include hl-input;
+}
+
+option {
+    font-family: inherit;
+    font-size: inherit;
+    color: var(--color-primary);
+    background: var(--color-background);
+}
 
 .divider {
     @include hl-divider;
+}
+
+.pointer {
+    cursor: pointer;
 }

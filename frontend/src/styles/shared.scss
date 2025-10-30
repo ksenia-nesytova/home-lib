@@ -1,37 +1,71 @@
+/** Font Size **/
+$font-xs: 0.85rem;
+$font-s: 1rem;
+$font-m: 1.2rem;
+$font-l: 1.5rem;
+$font-xl: 2rem;
+
+/** Margin & Padding Size **/
+$base-space: 0.25rem;
+$space-xxs: $base-space; //.25
+$space-xs: $base-space * 2; //.5
+$space-s: $base-space * 3; //.75
+$space-m: $base-space * 4; //1
+$space-l: $base-space * 6; //1.5
+$space-xl: $base-space * 8; //2
+
 @mixin hl-heading($level) {
   font-weight: 600;
-  margin-bottom: 0.25rem;
 
   @if $level ==1 {
-    font-size: 2rem;
+    font-size: $font-xl;
     color: var(--color-primary);
   }
 
   @else if $level ==2 {
-    font-size: 1.5rem;
+    font-size: $font-l;
     color: var(--color-primary);
   }
 
   @else if $level ==3 {
-    font-size: 1.2rem;
+    font-size: $font-m;
     color: var(--color-accent);
   }
 
   @else {
-    font-size: 1rem;
+    font-size: $font-s;
     color: var(--color-text);
   }
 }
 
+@mixin hl-margin($t: 0, $r: null, $b: null, $l: null) {
+  $r: if($r ==null, $t, $r);
+  $b: if($b ==null, $t, $b);
+  $l: if($l ==null, $r, $l);
+  margin: $t $r $b $l;
+}
+
+@mixin hl-padding($t: 0, $r: null, $b: null, $l: null) {
+  $r: if($r ==null, $t, $r);
+  $b: if($b ==null, $t, $b);
+  $l: if($l ==null, $r, $l);
+  padding: $t $r $b $l;
+}
 
 @mixin hl-card {
+
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+
   border-radius: 8px;
   background-color: var(--color-surface);
   color: var(--color-text);
   border: 1px solid var(--color-accent);
 
   max-width: 400px;
-  padding: 1rem 1.5rem;
+
+  @include hl-padding($space-m, $space-l, );
 
   @include hl-shadow;
   transition: box-shadow 0.3s ease, border-color 0.3s ease;
@@ -48,13 +82,13 @@
 }
 
 @mixin hl-paragraph {
-  font-size: 1rem;
+  font-size: $space-m;
   line-height: 1.5;
   color: var(--color-text);
 }
 
 @mixin hl-hint {
-  font-size: 0.85rem;
+  font-size: $space-s;
   color: var(--color-accent);
 }
 
@@ -65,9 +99,13 @@
 
   background-color: var(--color-accent);
   color: var(--color-surface);
-  padding: 0.25rem 0.75rem;
+
+  font-size: $space-s;
+  font-weight: 600;
+
+  @include hl-padding($space-xxs, $space-s);
+
   border-radius: 12px;
-  font-size: 0.85rem;
   box-shadow: 0 0 4px rgba(106, 207, 199, 0.5);
   user-select: none;
   cursor: pointer;
@@ -80,7 +118,7 @@
   transition: color 0.3s ease;
 
   &:hover {
-    cursor: crosshair;
+    cursor: pointer;
     color: var(--color-accent);
   }
 }
@@ -109,17 +147,4 @@
   background-color: var(--color-accent);
   opacity: 0.5;
   margin: 1rem 0;
-}
-
-input,
-textarea,
-select {
-  @include hl-input;
-}
-
-option {
-  font-family: inherit;
-  font-size: inherit;
-  color: var(--color-primary);
-  background: var(--color-background);
 }
