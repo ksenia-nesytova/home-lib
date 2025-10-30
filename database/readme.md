@@ -1,6 +1,6 @@
 # DB initialization
 
-## Running docker with contianers rebuilt
+## Running docker with containers rebuilt
 
 sudo docker-compose up --remove-orphans --build
 
