@@ -8,7 +8,7 @@
     @if (showAddInput) {
     <app-editable-field [value]="''" [placeholder]="'Start typing...'" (valueChange)="addTag($event)" />
     } @else {
-    <li (click)="showAddInput = true">+</li>
+    <li (click)="showAddInput = true" class="pointer">+</li>
     }
     }
 </ul>
