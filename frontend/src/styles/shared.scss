@@ -59,6 +59,10 @@
 }
 
 @mixin hl-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
   background-color: var(--color-accent);
   color: var(--color-surface);
   padding: 0.25rem 0.75rem;

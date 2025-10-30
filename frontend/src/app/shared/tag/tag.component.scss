@@ -1,10 +1,7 @@
-@use '../../../styles/shared';
+@use 'shared' as shared;
 
 .tag {
     @include shared.hl-tag;
-
-    display: flex;
-    flex-direction: row;
 
     &__remove {
         background: none;
