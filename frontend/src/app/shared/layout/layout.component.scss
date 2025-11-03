@@ -1,7 +1,9 @@
+@use '../styles/breakpoints' as *;
+
 .layout {
     display: grid;
     grid-template-rows: 50px 1fr 40px;
-    grid-template-columns: 220px 1fr;
+    grid-template-columns: 0 1fr;
     grid-template-areas:
         "header header"
         "nav main"
@@ -19,7 +21,9 @@
         0 0 8px 2px var(--color-primary),
         inset 0 0 12px 2px var(--color-accent);
 
-
+    @include device-xs {
+        grid-template-columns: calc(var(--sidenav-width, 220px)) 1fr;
+    }
 }
 
 #header {

@@ -1,9 +1,35 @@
-<nav class="side-nav">
-    <h3>Folders</h3>
-    <ul class="side-nav__links">
-        <a href="#" class="side-nav__link">All Cards</a>
-        <a href="#" class="side-nav__link">Favorites</a>
-        <a href="#" class="side-nav__link">Fiction</a>
-        <a href="#" class="side-nav__link">Non-fiction</a>
-    </ul>
+<nav class="sidenav" [class.sidenav_collapsed]="navbarService.isCollapsed()"
+    [class.sidenav_mobile-open]="navbarService.isMobileOpen()">
+
+    <div class="sidenav__top">
+        <div class="sidenav__btn-wrapper">
+            <button class="sidenav__btn" (click)="navbarService.toggleDesktop()">
+
+                <mat-icon svgIcon="{{navbarService.isCollapsed() ? 'HL-navigationMenu' : 'HL-navigationClose'}}" />
+            </button>
+        </div>
+
+
+        <!-- <h3>Folders</h3> -->
+        <ul class="sidenav__list">
+            @for (link of navLinks; track link.path) {
+
+            <div class="sidenav__link-wrapper">
+                <mat-icon svgIcon="HL-navigationClose" />
+
+
+                <a [routerLink]="link.path" class="sidenav__link" routerLinkActive="sidenav__link_active"
+                    (click)="collapseMobile()">
+                    {{ link.label }}
+                </a>
+            </div>
+            }
+        </ul>
+    </div>
+
+    <div class="sidenav__bottom">
+        <div (click)="$event.stopPropagation()">
+            <app-theme-switch />
+        </div>
+    </div>
 </nav>

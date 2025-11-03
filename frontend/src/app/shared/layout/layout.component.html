@@ -1,4 +1,6 @@
-<div class="layout">
+@let sidenavWidth = NavbarService.isCollapsed() ? 72 : 220;
+
+<div class="layout" [style.--sidenav-width.px]="sidenavWidth">
     <app-header id="header" />
 
     <app-side-nav id="sidenav" />
