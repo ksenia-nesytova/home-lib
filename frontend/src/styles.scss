@@ -2,6 +2,7 @@
 @use 'styles/theme';
 @use 'styles/normalize';
 @use 'styles/reset';
+@use 'styles/breakpoints';
 
 body {
     background-color: var(--color-background);

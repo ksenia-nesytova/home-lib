@@ -1,0 +1,37 @@
+/* breakpoints */
+$min-width-xs: 480px;
+$min-width-s: 768px;
+$min-width-m: 1024px;
+$min-width-l: 1280px;
+$min-width-xl: 1600px;
+
+/* mobile-first */
+@mixin device-xs {
+  @media screen and (min-width: $min-width-xs) {
+    @content;
+  }
+}
+
+@mixin device-s {
+  @media screen and (min-width: $min-width-s) {
+    @content;
+  }
+}
+
+@mixin device-m {
+  @media screen and (min-width: $min-width-m) {
+    @content;
+  }
+}
+
+@mixin device-l {
+  @media screen and (min-width: $min-width-l) {
+    @content;
+  }
+}
+
+@mixin device-xl {
+  @media screen and (min-width: $min-width-xl) {
+    @content;
+  }
+}

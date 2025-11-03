@@ -1,6 +1,6 @@
 /** Font Size **/
 $font-xs: 0.85rem;
-$font-s: 1rem;
+$font-s: 1rem; // 14px
 $font-m: 1.2rem;
 $font-l: 1.5rem;
 $font-xl: 2rem;
@@ -65,7 +65,7 @@ $space-xl: $base-space * 8; //2
 
   max-width: 400px;
 
-  @include hl-padding($space-m, $space-l, );
+  @include hl-padding($space-m, $space-l);
 
   @include hl-shadow;
   transition: box-shadow 0.3s ease, border-color 0.3s ease;
@@ -147,4 +147,30 @@ $space-xl: $base-space * 8; //2
   background-color: var(--color-accent);
   opacity: 0.5;
   margin: 1rem 0;
+}
+
+
+@mixin btn-icon-only {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  // border: none;
+  border: 1px solid var(--color-primary);
+  border-radius: 8px;
+
+  @include hl-padding($space-m);
+  height: 40px;
+  width: 40px;
+
+  background-color: var(--color-surface);
+  color: var(--color-dead-pixel);
+
+  &:hover {
+    background-color: var(--color-accent);
+  }
+
+  &:active {
+    background-color: var(--color-primary);
+  }
 }
