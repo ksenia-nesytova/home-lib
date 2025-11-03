@@ -1,11 +1,11 @@
 import { Component, input, InputSignal, signal, WritableSignal } from '@angular/core';
-import { EditableFieldComponent } from '../../shared/editable-field/editable-field.component';
-import { Card } from '../../shared/models/Card';
-import { MediaType } from '../../shared/enums/media-type';
+import { EditableFieldComponent } from '@app/shared/editable-field/editable-field.component';
+import { Card } from '@app/shared/models/Card';
+import { MediaType } from '@app/shared/enums/media-type';
 import { FormsModule } from '@angular/forms';
-import { EditableSelectComponent } from '../../shared/editable-select/editable-select.component';
-import { StarRatingComponent } from '../../shared/star-rating/star-rating.component';
-import { TagListComponent } from '../../shared/tag-list/tag-list.component';
+import { EditableSelectComponent } from '@app/shared/editable-select/editable-select.component';
+import { StarRatingComponent } from '@app/shared/star-rating/star-rating.component';
+import { TagListComponent } from '@app/shared/tag-list/tag-list.component';
 import { DatePipe } from '@angular/common';
 
 @Component({
