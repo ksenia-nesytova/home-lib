@@ -48,9 +48,6 @@
 }
 
 .burger {
-    @include btn-icon-only;
-    padding: 0;
-
     @include device-xs {
         display: none;
     }
