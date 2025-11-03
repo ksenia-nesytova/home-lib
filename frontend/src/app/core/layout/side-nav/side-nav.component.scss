@@ -42,7 +42,10 @@
         z-index: 1000;
         width: 240px; // full width for overlay
         box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
-        background: var(--color-surface);
+
+        border-top: 3px solid var(--color-secondary);
+
+        color: var(--color-secondary);
     }
 
     &__list {

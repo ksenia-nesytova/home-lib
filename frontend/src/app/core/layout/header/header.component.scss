@@ -1,42 +1,57 @@
-    .header {
+@use '../styles/breakpoints' as *;
+@use '../styles/shared' as *;
+
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    height: 50px;
+
+    background: var(--color-surface);
+    border-bottom: 3px solid var(--color-primary);
+    padding: 0 16px;
+
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    text-shadow: 0 0 4px var(--color-neon);
+}
+
+.nav {
+    &__links {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        gap: 18px;
+    }
 
-        height: 100%;
+    &__link {
+        text-decoration: none;
 
-        background: var(--color-surface);
-        border-bottom: 3px solid var(--color-primary);
-        padding: 0 16px;
-
-        font-size: 1.3rem;
-        font-weight: 700;
         color: var(--color-primary);
-        text-shadow: 0 0 4px var(--color-neon);
-    }
+        font-weight: 600;
 
-    .nav {
-        &__links {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-        }
+        border-radius: 8px;
 
-        &__link {
-            text-decoration: none;
+        padding: 0 8px;
 
-            color: var(--color-primary);
-            font-weight: 600;
+        transition: background-color 0.2s ease, color 0.2s ease;
+        text-shadow: 0 0 2px var(--color-neon);
 
-            border-radius: 4px;
-
-            transition: background-color 0.2s ease, color 0.2s ease;
-            text-shadow: 0 0 2px var(--color-neon);
-
-            &:hover {
-                background-color: var(--color-accent);
-                color: var(--color-surface);
-                text-shadow: none;
-            }
+        &:hover {
+            background-color: var(--color-accent);
+            color: var(--color-surface);
+            text-shadow: none;
         }
     }
+}
+
+.burger {
+    @include btn-icon-only;
+    padding: 0;
+
+    @include device-xs {
+        display: none;
+    }
+}

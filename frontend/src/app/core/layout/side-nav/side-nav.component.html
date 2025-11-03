@@ -15,7 +15,7 @@
             @for (link of navLinks; track link.path) {
 
             <div class="sidenav__link-wrapper">
-                <mat-icon svgIcon="HL-navigationClose" />
+                <mat-icon svgIcon="{{link.icon}}" />
 
 
                 <a [routerLink]="link.path" class="sidenav__link" routerLinkActive="sidenav__link_active"
