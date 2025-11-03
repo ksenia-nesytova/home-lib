@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { MatIconRegistry } from '@angular/material/icon';
 import { EntityCardComponent } from './components/entity-card/entity-card.component';
 import { LayoutComponent } from './shared/layout/layout.component';
-
+import { iconPaths } from '../assets/icons/icons';
+import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-root',
   imports: [
@@ -13,6 +15,26 @@ import { LayoutComponent } from './shared/layout/layout.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
-  title = 'frontend';
+export class AppComponent implements AfterViewInit {
+  title = 'HomeLib';
+
+  private iconRegistry = inject(MatIconRegistry);
+  private sanitizer = inject(DomSanitizer);
+
+
+  ngAfterViewInit() {
+    this.registerSVGIcons();
+  }
+
+
+  registerSVGIcons(): void {
+    (Object.entries(iconPaths) as [string, string][]).forEach(([iconName, iconPath]) => {
+      const iconNameWithPrefix = `HL-${iconName}`;
+      this.iconRegistry.addSvgIcon(
+        iconNameWithPrefix,
+        this.sanitizer.bypassSecurityTrustResourceUrl(iconPath)
+      );
+    });
+  }
+
 }
