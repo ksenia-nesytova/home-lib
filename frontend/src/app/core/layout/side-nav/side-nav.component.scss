@@ -2,56 +2,40 @@
 @use '../styles/breakpoints' as *;
 
 .sidenav {
+    position: fixed;
+    top: 0;
+    left: 0;
     height: 100vh;
+    width: 0;
     overflow: hidden;
-    transition: width 0.3s ease;
+    z-index: 1000;
+
+    background-color: var(--color-surface);
+    color: var(--color-secondary);
+    text-shadow: 0 0 2px var(--color-pink);
+    border-right: 3px solid var(--color-secondary);
+
+    transition: width 0.3s ease, transform 0.3s ease;
+    transform: translateX(-100%);
 
     @include hl-padding(0, $space-xs);
 
-    border-right: 3px solid var(--color-secondary);
-    background: var(--color-surface);
-
-    color: var(--color-secondary);
-    text-shadow: 0 0 2px var(--color-pink);
-
-    @include device-s {
-        @include hl-padding($space-m, $space-s);
+    &__top {
+        display: flex;
+        flex-direction: column;
     }
 
-    &_collapsed {
-        width: 72px;
-        display: none;
-
-        @include device-xs {
-            display: block;
-        }
-
-        .sidenav {
-            &__link {
-                opacity: 0;
-                pointer-events: none;
-                transition: opacity 0.2s ease;
-            }
-        }
-    }
-
-    &_mobile-open {
-        position: fixed;
-        left: 0;
-        top: 0;
-        z-index: 1000;
-        width: 240px; // full width for overlay
-        box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
-
-        border-top: 3px solid var(--color-secondary);
-
-        color: var(--color-secondary);
+    &__btn-wrapper {
+        height: 50px; // header height
+        display: flex;
+        align-items: center;
+        align-self: flex-end;
     }
 
     &__list {
-        list-style-type: none;
-        padding-left: 0;
-
+        list-style: none;
+        margin: 0;
+        padding: 0;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
@@ -60,20 +44,17 @@
     &__link-wrapper {
         display: flex;
         flex-direction: row;
+        align-items: center;
+        transition: all 0.2s ease;
     }
 
     &__link {
         color: var(--color-secondary);
         text-decoration: none;
-        display: none;
         padding: 0 8px;
         border-radius: 3px;
-        transition: background-color 0.2s ease;
         font-weight: 600;
-
-        @include device-xs {
-            display: block;
-        }
+        transition: background-color 0.2s ease;
 
         &:hover {
             background-color: var(--color-pink);
@@ -82,30 +63,59 @@
         }
     }
 
-    &__top {
-        display: flex;
-        flex-direction: column;
-
-        // padding-top: 50px;
-
-        // @include device-xs {
-        //     padding: 0;
-        // }
-    }
-
-    &__btn-wrapper {
-        padding: 5px 0;
-        align-self: flex-end;
-    }
-
     &__bottom {
         display: flex;
         flex-direction: column;
         align-items: flex-end;
     }
 
-    &__btn {
-        @include btn-icon-only;
-        padding: 0;
+    /* === MOBILE OPEN === */
+    &_mobile-open {
+        transform: translateX(0);
+        width: 240px;
+        box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
+        border-top: 3px solid var(--color-secondary);
+    }
+
+    /* === DESKTOP BEHAVIOR === */
+    @include device-xs {
+        position: static;
+        transform: none;
+        width: var(--sidenav-width, 220px);
+        height: 100%;
+        box-shadow: none;
+
+        &__link {
+            display: block;
+        }
+
+        &_mobile-open {
+            transform: none;
+            width: var(--sidenav-width, 220px);
+            box-shadow: none;
+            border-top: none;
+        }
+
+        &_collapsed {
+            width: 72px;
+
+            .sidenav__top {
+                align-items: center;
+            }
+
+            .sidenav__btn-wrapper {
+                align-self: center;
+            }
+
+            .sidenav__link {
+                display: none;
+                pointer-events: none;
+            }
+
+            .sidenav__link-wrapper {
+                justify-content: center;
+                @include hl-padding($space-xs, 0);
+            }
+        }
     }
 }
