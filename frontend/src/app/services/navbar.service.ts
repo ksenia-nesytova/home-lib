@@ -16,7 +16,7 @@ export class NavbarService {
     this.initMenu();
   }
 
-  collapse(isCollapsed: boolean = false): void {
+  private collapse(isCollapsed: boolean = false): void {
     this.isCollapsed.set(isCollapsed);
   }
 
@@ -32,6 +32,7 @@ export class NavbarService {
     this.collapse(false);
     this.isMobileOpen.set(!this.isMobileOpen());
   }
+
 
   private initMenu(): void {
     const stored = localStorage.getItem('menuState');
