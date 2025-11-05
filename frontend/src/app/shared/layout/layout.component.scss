@@ -2,24 +2,18 @@
 
 .layout {
     display: grid;
-    grid-template-rows: 50px 1fr 40px;
+    grid-template-rows: 50px 1fr;
     grid-template-columns: 0 1fr;
     grid-template-areas:
         "nav header"
         "nav main"
-        "footer footer";
+    ;
     height: 100vh;
-    border: 3px solid var(--color-primary);
-    border-radius: 8px;
-    background: var(--color-background);
-    color: var(--color-text);
     overflow: hidden;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
-    /* Glow effect */
-    box-shadow:
-        0 0 8px 2px var(--color-primary),
-        inset 0 0 12px 2px var(--color-accent);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--color-text);
+    background: var(--color-bg);
 
     @include device-xs {
         grid-template-columns: calc(var(--sidenav-width, 220px)) 1fr;
@@ -34,15 +28,9 @@
     grid-area: nav;
 }
 
-
 #main {
     grid-area: main;
     padding: 8px 16px;
     overflow-y: auto;
     background: var(--color-surface);
-    /* No border to avoid conflict with outer wrapper */
-}
-
-#footer {
-    grid-area: footer;
 }
