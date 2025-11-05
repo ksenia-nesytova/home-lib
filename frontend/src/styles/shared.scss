@@ -53,32 +53,43 @@ $space-xl: $base-space * 8; //2
 }
 
 @mixin hl-card {
-
   display: flex;
   flex-direction: column;
   gap: $space-xs;
 
-  border-radius: 8px;
-  background-color: var(--color-surface);
-  color: var(--color-text);
-  border: 1px solid var(--color-accent);
-
   max-width: 400px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+  color: var(--color-text);
 
   @include hl-padding($space-m, $space-l);
+  @include hl-shadow(sm);
 
-  @include hl-shadow;
-  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  transition:
+    box-shadow 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.3s ease;
 
   &:hover {
-    box-shadow: 0 8px 16px rgba(0, 191, 255, 0.5);
+    @include hl-shadow(md);
     border-color: var(--color-primary);
   }
 }
 
 
-@mixin hl-shadow {
-  box-shadow: 0 4px 8px rgba(0, 191, 255, 0.2);
+@mixin hl-shadow($size: sm) {
+  @if $size ==sm {
+    box-shadow: var(--shadow-sm);
+  }
+
+  @else if $size ==md {
+    box-shadow: var(--shadow-md);
+  }
+
+  @else if $size ==lg {
+    box-shadow: var(--shadow-lg);
+  }
 }
 
 @mixin hl-paragraph {
@@ -89,7 +100,9 @@ $space-xl: $base-space * 8; //2
 
 @mixin hl-hint {
   font-size: $space-s;
-  color: var(--color-accent);
+  color: var(--color-text-muted);
+  letter-spacing: 0.3px;
+  opacity: 0.8;
 }
 
 @mixin hl-tag {
@@ -106,19 +119,34 @@ $space-xl: $base-space * 8; //2
   @include hl-padding($space-xxs, $space-s);
 
   border-radius: 12px;
-  box-shadow: 0 0 4px rgba(106, 207, 199, 0.5);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+
   user-select: none;
   cursor: pointer;
+
+  &:hover {
+    background-color: var(--color-primary);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
 }
 
 @mixin hl-link {
   color: var(--color-primary);
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.3s ease;
+  transition: color 0.2s ease;
 
   &:hover {
-    cursor: pointer;
+    color: var(--color-secondary);
+    text-decoration: underline;
+  }
+
+  &:active {
     color: var(--color-accent);
   }
 }
@@ -127,26 +155,40 @@ $space-xl: $base-space * 8; //2
   width: 100%;
   font-size: inherit;
   font-family: inherit;
-  border: 2px solid var(--color-accent);
-  border-radius: 4px;
 
-  background-color: inherit;
+  border: 1.5px solid var(--color-border);
+  border-radius: 6px;
 
-  &:hover,
-  &:active,
+  background-color: var(--color-surface);
+  color: var(--color-text);
+
+  padding: 0.4rem 0.6rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    border-color: var(--color-secondary);
+  }
+
   &:focus {
-    border: 2px solid var(--color-secondary);
+    border-color: var(--color-primary);
     outline: none;
-    box-shadow: 0 0 4px rgba(235, 154, 3, 0.932);
+    box-shadow: 0 0 4px rgba(39, 103, 73, 0.4);
+  }
+
+  &::placeholder {
+    color: var(--color-text-muted);
+    opacity: 0.7;
   }
 }
 
 @mixin hl-divider {
   border: none;
   height: 1px;
-  background-color: var(--color-accent);
-  opacity: 0.5;
+  background-color: var(--color-border);
+  opacity: 0.7;
   margin: 1rem 0;
+
+  border-radius: 1px;
 }
 
 
@@ -155,8 +197,7 @@ $space-xl: $base-space * 8; //2
   align-items: center;
   justify-content: center;
 
-  // border: none;
-  border: 1px solid var(--color-primary);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
 
   @include hl-padding($space-m);
@@ -164,13 +205,19 @@ $space-xl: $base-space * 8; //2
   width: 40px;
 
   background-color: var(--color-surface);
-  color: var(--color-dead-pixel);
+  color: var(--color-text-muted);
 
   &:hover {
-    background-color: var(--color-accent);
+    background-color: var(--color-highlight);
+    color: var(--color-primary);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
   }
 
   &:active {
-    background-color: var(--color-primary);
+    background-color: var(--color-secondary);
+    color: var(--color-surface);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+    transform: scale(0.97);
   }
 }

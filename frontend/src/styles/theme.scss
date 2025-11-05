@@ -1,42 +1,38 @@
 /* Light Theme */
 :root {
-  --color-background: #FAFAFA;
-  --color-surface: #FFFFFF;
-  --color-text: #222222;
+  --color-bg: #f9f8f6;
+  --color-surface: #ffffff;
+  --color-text: #1e1e1e;
+  --color-text-muted: #555;
+  --color-primary: #276749;
+  --color-secondary: #d6a33c;
+  --color-accent: #8abf76;
+  --color-highlight: #ffd97a;
+  --color-border: #ddd;
+  --color-error: #d24a4a;
 
-  --color-primary: #00BFFF;
-  /* Electric Blue */
-  --color-accent: #6ACFC7;
-  /* Muted Cyan */
-  --color-secondary: #FF8C00;
-  /* Warm Orange */
-  --color-pink: #FF69B4;
-  /* Hot Pink */
-
-  --color-neon: #00FF00;
-  /* 90s Tech Neon Green */
-  --color-purple: #A390F0;
-  /* Soft Purple */
-  --color-dead-pixel: #2a2a2a;
-  /* Powered off pixel */
-  --color-crt-green: #00FF00;
-  /*  Old CRT monitor green */
+  /* depth & motion */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+  --transition-default: 0.25s ease-in-out;
 }
 
+
 /* Dark Theme */
-[data-theme="dark"] {
-  --color-background: #121212;
-  --color-surface: #1E1E1E;
-  --color-text: #E0E0E0;
+[data-theme='dark'] {
+  --color-bg: #181a18;
+  --color-surface: #1f211f;
+  --color-text: #e9e7e4;
+  --color-text-muted: #b4b3af;
+  --color-primary: #9fd8a0;
+  --color-secondary: #e1b85c;
+  --color-accent: #74c190;
+  --color-highlight: #ffe288;
+  --color-border: #333;
+  --color-error: #e86c6c;
 
-  --color-primary: #00BFFF;
-  --color-accent: #6ACFC7;
-  --color-secondary: #FF8C00;
-  --color-pink: #FF69B4;
-
-  --color-neon: #00FF00;
-  --color-purple: #A390F0;
-  --color-dead-pixel: #2a2a2a;
-  --color-crt-green: #00FF00;
-  /*  Old CRT monitor green */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.7);
 }
