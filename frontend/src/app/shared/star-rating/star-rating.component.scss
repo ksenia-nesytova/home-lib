@@ -1,36 +1,35 @@
 @use 'shared' as shared;
 
+:host {
+    display: flex;
+    align-items: center;
+}
+
 .stars {
     display: inline-flex;
     gap: 0.25rem;
+    align-items: center;
 }
 
 .star {
     font-size: 2rem;
-    color: var(--color-dead-pixel);
-    transition: color 0.2s ease-in-out;
-
-    filter: brightness(0.6);
-    opacity: 0.6;
-
+    color: var(--color-text-muted);
+    transition: color 0.2s ease-in-out, transform 0.2s ease;
     cursor: pointer;
     line-height: 1;
 
     &_filled {
-        color: var(--color-neon);
-        filter: brightness(1);
-        opacity: 1;
+        color: var(--color-secondary);
         text-shadow:
-            0 0 2px var(--color-neon),
-            0 0 4px var(--color-neon);
-
+            0 0 2px var(--color-highlight),
+            0 0 4px var(--color-highlight);
     }
 
     &:hover {
         transform: scale(1.2);
         text-shadow:
-            0 0 3px var(--color-neon),
-            0 0 6px var(--color-neon);
+            0 0 3px var(--color-highlight),
+            0 0 6px var(--color-highlight);
     }
 }
 
