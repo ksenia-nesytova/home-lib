@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatIconRegistry } from '@angular/material/icon';
 import { EntityCardComponent } from './components/entity-card/entity-card.component';
@@ -15,14 +15,14 @@ import { DomSanitizer } from '@angular/platform-browser';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent {
   title = 'HomeLib';
 
   private iconRegistry = inject(MatIconRegistry);
   private sanitizer = inject(DomSanitizer);
 
 
-  ngAfterViewInit() {
+  constructor() {
     this.registerSVGIcons();
   }
 
@@ -36,5 +36,4 @@ export class AppComponent implements AfterViewInit {
       );
     });
   }
-
 }
