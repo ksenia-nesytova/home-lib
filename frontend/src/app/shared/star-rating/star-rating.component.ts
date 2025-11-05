@@ -1,8 +1,11 @@
 import { Component, effect, input, InputSignal, output, signal, WritableSignal } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-star-rating',
-  imports: [],
+  imports: [
+    MatIconModule
+  ],
   templateUrl: './star-rating.component.html',
   styleUrl: './star-rating.component.scss'
 })
