@@ -1,6 +1,5 @@
-@use '../styles/breakpoints' as *;
-@use '../styles/shared' as *;
-
+@use 'shared' as *;
+@use 'breakpoints' as *;
 
 .header {
     display: flex;
@@ -8,22 +7,25 @@
     justify-content: space-between;
 
     height: 50px;
+    // padding: 0 16px;
+
+    @include hl-padding(0, $space-l);
 
     background: var(--color-surface);
     border-bottom: 3px solid var(--color-primary);
-    padding: 0 16px;
+    box-shadow: var(--shadow-sm);
+
 
     font-size: 1.3rem;
     font-weight: 700;
     color: var(--color-primary);
-    text-shadow: 0 0 4px var(--color-neon);
 }
 
 .nav {
     &__links {
         display: flex;
         align-items: center;
-        gap: 18px;
+        gap: $space-m;
     }
 
     &__link {
@@ -34,21 +36,39 @@
 
         border-radius: 8px;
 
-        padding: 0 8px;
+        // padding: 0 8px;
+        @include hl-padding(0, $space-xs);
 
-        transition: background-color 0.2s ease, color 0.2s ease;
-        text-shadow: 0 0 2px var(--color-neon);
+
+        color: var(--color-primary);
+        transition: all 0.2s ease;
+        text-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
 
         &:hover {
             background-color: var(--color-accent);
             color: var(--color-surface);
-            text-shadow: none;
+            text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+        }
+
+        &:active {
+            background-color: var(--color-secondary);
+            color: var(--color-surface);
         }
     }
 }
 
 .burger {
+    display: block;
+
     @include device-xs {
         display: none;
+    }
+
+    cursor: pointer;
+
+    transition: color 0.2s ease;
+
+    &:hover {
+        color: var(--color-accent);
     }
 }
