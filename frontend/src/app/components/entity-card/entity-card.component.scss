@@ -1,8 +1,5 @@
 @use 'shared' as shared;
-
-:host {
-    margin: 1rem auto;
-}
+@use 'breakpoints' as breakpoints;
 
 .card {
     @include shared.hl-card;
@@ -28,6 +25,8 @@
     &__input-block {
         display: flex;
         flex-direction: row;
+        align-items: center;
+
         gap: 4px;
 
         @include shared.hl-paragraph;

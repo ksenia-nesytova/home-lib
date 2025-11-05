@@ -1,8 +1,8 @@
-@use 'styles/shared' as *;
-@use 'styles/theme';
 @use 'styles/normalize';
 @use 'styles/reset';
-@use 'styles/breakpoints';
+@use 'styles/shared' as *;
+@use 'styles/theme' as *;
+@use 'styles/breakpoints' as *;
 
 body {
     background-color: var(--color-background);
