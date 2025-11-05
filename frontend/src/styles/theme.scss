@@ -2,6 +2,7 @@
 :root {
   --color-bg: #f9f8f6;
   --color-surface: #ffffff;
+  --color-surface-dark: #f0f2ed;
   --color-text: #1e1e1e;
   --color-text-muted: #555;
   --color-primary: #276749;
@@ -23,6 +24,7 @@
 [data-theme='dark'] {
   --color-bg: #181a18;
   --color-surface: #1f211f;
+  --color-surface-dark: #242824;
   --color-text: #e9e7e4;
   --color-text-muted: #b4b3af;
   --color-primary: #9fd8a0;

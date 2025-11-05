@@ -3,7 +3,7 @@
 
     <div class="sidenav__top">
         <div class="sidenav__btn-wrapper">
-            <mat-icon svgIcon="{{navbarService.isCollapsed() ? 'HL-navigationMenu' : 'HL-navigationClose'}}"
+            <mat-icon [svgIcon]="navbarService.isCollapsed() ? 'HL-navigationMenu' : 'HL-navigationClose'"
                 (click)="navbarService.toggleDesktop()" />
         </div>
 
