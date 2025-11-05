@@ -1,3 +1,5 @@
+@use 'shared' as shared;
+
 $height: 24px;
 $width: 42px;
 $padding: 2px;
@@ -22,49 +24,47 @@ $translate-x: calc($width - $inner-circle - $padding * 2);
 
     /* The slider */
     &__slider {
-        border-radius: calc($height / 2);
         position: absolute;
         cursor: pointer;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: red;
-        -webkit-transition: .4s;
-        transition: .4s;
+        border-radius: $height / 2;
+        background-color: var(--color-accent);
+        transition: background-color 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
-        /* Псевдоэлемент для отображения иконок */
+        /** Pseudo-element to display an icon **/
+        /** Light Mode **/
         &:before {
+            content: "☀️";
             position: absolute;
             height: $inner-circle;
             width: $inner-circle;
-
             left: $padding;
             bottom: $padding;
+            border-radius: 50%;
+
+            background-color: var(--color-primary);
 
             display: flex;
-            align-items: flex-end;
+            align-items: center;
             justify-content: center;
-            border-radius: 50%;
-            content: "";
-            font-size: 12px;
-            color: green;
-            background-color: hotpink;
-
-            -webkit-transition: .4s;
-            transition: .4s;
+            font-size: 0.7rem;
+            transition: transform 0.3s ease, background-color 0.3s ease, content 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
     }
 
-    /* Изменения для состояния checked */
+    /** Dark Mode **/
     input:checked+&__slider {
-        background-color: magenta;
+        background-color: var(--color-text-muted);
 
         &:before {
-            content: "";
-            -webkit-transform: translateX($translate-x);
-            -ms-transform: translateX($translate-x);
             transform: translateX($translate-x);
+            background-color: var(--color-accent);
+            content: "🌙";
         }
     }
 }
