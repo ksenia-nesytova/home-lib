@@ -34,7 +34,7 @@
     &__list {
         list-style: none;
         margin: 0;
-        padding: 0;
+        padding: 0 16px;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
@@ -45,13 +45,24 @@
         flex-direction: row;
         align-items: center;
         gap: 8px;
+
+        line-height: 1;
+
+        width: 100%;
         transition: all 0.2s ease;
+
+        mat-icon {
+            flex: 0 0 40px;
+            text-align: center;
+        }
     }
 
     &__link {
         color: var(--color-secondary);
         text-decoration: none;
-        padding: 4px 8px;
+        flex: 1 1 auto;
+        text-align: left;
+
         border-radius: 6px;
         font-weight: 600;
         transition: background-color 0.2s ease, color 0.2s ease;
@@ -62,7 +73,7 @@
             text-shadow: 0 0 2px var(--color-primary);
         }
 
-        &.sidenav__link_active {
+        &_active {
             background-color: var(--color-primary);
             color: var(--color-surface);
             font-weight: 700;
@@ -93,7 +104,11 @@
         box-shadow: none;
 
         &__link {
-            display: block;
+            opacity: 1;
+            visibility: visible;
+            width: auto;
+            transition: opacity 0.2s ease, width 0.3s ease;
+            white-space: nowrap;
         }
 
         &_mobile-open {
@@ -106,23 +121,34 @@
         &_collapsed {
             width: 72px;
 
-            .sidenav__top {
-                align-items: center;
+            .sidenav {
+                &__top {
+                    align-items: center;
+                }
+
+                &__btn-wrapper {
+                    align-self: center;
+                }
+
+                &__link {
+                    opacity: 0;
+                    visibility: hidden;
+                    width: 0;
+                    overflow: hidden;
+                    transition: opacity 0.1s ease, width 0.3s ease;
+                    pointer-events: none;
+                }
+
+                &__link-wrapper {
+                    justify-content: center;
+                    gap: 0px;
+                }
+
+                &__bottom {
+                    align-items: center;
+                }
             }
 
-            .sidenav__btn-wrapper {
-                align-self: center;
-            }
-
-            .sidenav__link {
-                display: none;
-                pointer-events: none;
-            }
-
-            .sidenav__link-wrapper {
-                justify-content: center;
-                @include hl-padding($space-xs, 0);
-            }
         }
     }
 }

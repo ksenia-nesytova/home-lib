@@ -7,13 +7,11 @@
                 (click)="navbarService.toggleDesktop()" />
         </div>
 
-        <!-- <h3>Folders</h3> -->
         <ul class="sidenav__list">
             @for (link of navLinks; track link.path) {
 
             <div class="sidenav__link-wrapper">
                 <mat-icon svgIcon="{{link.icon}}" />
-
 
                 <a [routerLink]="link.path" class="sidenav__link" routerLinkActive="sidenav__link_active"
                     (click)="collapseMobile()">
@@ -23,6 +21,8 @@
             }
         </ul>
     </div>
+
+    <hr class="divider">
 
     <div class="sidenav__bottom">
         <div (click)="$event.stopPropagation()">
