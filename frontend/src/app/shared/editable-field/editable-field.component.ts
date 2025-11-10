@@ -1,10 +1,12 @@
 import { Component, effect, input, InputSignal, output, signal, WritableSignal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-editable-field',
   imports: [
-    FormsModule
+    FormsModule,
+    MatIconModule
   ],
   templateUrl: './editable-field.component.html',
   styleUrl: './editable-field.component.scss'

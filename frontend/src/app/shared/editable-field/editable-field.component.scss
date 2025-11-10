@@ -7,6 +7,50 @@
     flex: 1;
 }
 
+.editable {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+
+    input,
+    textarea {
+        width: 100%;
+        padding-right: 60px;
+        border: 1px solid var(--color-border);
+        transition: border-color 0.2s ease;
+
+        &:focus {
+            border-color: var(--color-accent);
+        }
+    }
+
+    &__actions {
+        position: absolute;
+        right: 4px;
+        display: flex;
+    }
+
+    &__icon-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-accent);
+
+        &_cancel {
+            color: var(--color-error);
+        }
+
+        &:hover {
+            color: var(--color-primary);
+        }
+    }
+}
+
 p {
     cursor: pointer;
 }

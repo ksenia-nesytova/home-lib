@@ -1,14 +1,26 @@
 @if (!isEditing()) {
-<p (click)="toggleEditMode()" [class.non-editable]="!isEditable()">{{value() || placeholder()}}</p>
+<p (click)="toggleEditMode()" [class.non-editable]="!isEditable()">
+    {{ value() || placeholder() }}
+</p>
 } @else {
+<div class="editable">
+    @switch (type()) {
+    @case ('text') {
+    <input type="text" [(ngModel)]="currentValue" [placeholder]="placeholder()" (blur)="save()" autofocus />
+    }
+    @case ('textarea') {
+    <textarea [(ngModel)]="currentValue" [placeholder]="placeholder()" (blur)="save()" rows="3" autofocus></textarea>
+    }
+    }
 
-@switch (type()) {
-@case ('text') {
-<input type="text" [(ngModel)]="currentValue" (blur)="save()" (keydown.enter)="save()" [placeholder]="placeholder()" />
-}
+    <div class="editable__actions">
+        <button type="button" class="editable__icon-btn" (click)="save()">
+            <mat-icon svgIcon="HL-navigationCheck" />
+        </button>
 
-@case ('textarea') {
-<textarea [(ngModel)]="currentValue" (blur)="save()" (keydown.enter)="save()" [placeholder]="placeholder()"></textarea>
-}
-}
+        <button type="button" class="editable__icon-btn editable__icon-btn_cancel" (click)="cancel()">
+            <mat-icon svgIcon="HL-navigationClose" />
+        </button>
+    </div>
+</div>
 }
