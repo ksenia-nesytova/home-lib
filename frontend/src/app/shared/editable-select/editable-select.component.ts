@@ -1,9 +1,13 @@
 import { Component, effect, input, InputSignal, output, signal, WritableSignal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-editable-select',
-  imports: [FormsModule],
+  imports: [
+    FormsModule,
+    MatIconModule,
+  ],
   templateUrl: './editable-select.component.html',
   styleUrl: './editable-select.component.scss'
 })
@@ -42,5 +46,4 @@ export class EditableSelectComponent {
       this.valueChange.emit(this.currentValue());
     }
   }
-
 }

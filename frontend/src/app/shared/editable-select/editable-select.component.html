@@ -1,9 +1,15 @@
 @if (!isEditing()) {
 <p (click)="toggleEditMode()" [class.non-editable]="!isEditable()">{{currentValue() || placeholder()}}</p>
 } @else {
-<select [(ngModel)]="currentValue" (blur)="onBlur()">
-    @for (option of options(); track $index) {
-    <option [value]="option">{{option}}</option>
-    }
-</select>
+<div class="editable">
+    <select [(ngModel)]="currentValue" (blur)="onBlur()">
+        @for (option of options(); track $index) {
+        <option [value]="option">{{option}}</option>
+        }
+    </select>
+
+    <button type="button" class="editable__icon-btn">
+        <mat-icon svgIcon="HL-navigationExpand" />
+    </button>
+</div>
 }
