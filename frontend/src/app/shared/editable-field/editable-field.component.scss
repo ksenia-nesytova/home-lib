@@ -1,4 +1,4 @@
-@use 'shared' as shared;
+@use 'shared' as *;
 
 :host {
     display: inline-block;
@@ -12,17 +12,9 @@
     display: flex;
     align-items: center;
 
-
     input,
     textarea {
-        width: 100%;
         padding-right: 60px;
-        border: 1px solid var(--color-border);
-        transition: border-color 0.2s ease;
-
-        &:focus {
-            border-color: var(--color-accent);
-        }
     }
 
     &__actions {

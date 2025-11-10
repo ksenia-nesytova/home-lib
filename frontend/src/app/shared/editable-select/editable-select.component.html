@@ -1,15 +1,23 @@
 @if (!isEditing()) {
-<p (click)="toggleEditMode()" [class.non-editable]="!isEditable()">{{currentValue() || placeholder()}}</p>
+<p (click)="toggleEditMode()" [class.non-editable]="!isEditable()">
+    {{ currentValue() || placeholder() }}
+</p>
 } @else {
 <div class="editable">
-    <select [(ngModel)]="currentValue" (blur)="onBlur()">
-        @for (option of options(); track $index) {
-        <option [value]="option">{{option}}</option>
-        }
-    </select>
+    <div class="editable__input" (click)="toggleDropdown()" tabindex="0">
+        {{ currentValue() || placeholder() }}
+        <mat-icon svgIcon="HL-navigationExpand" class="editable__icon" />
+    </div>
 
-    <button type="button" class="editable__icon-btn">
-        <mat-icon svgIcon="HL-navigationExpand" />
-    </button>
+    @if (dropdownOpen()) {
+    <ul class="editable__options">
+        @for (option of options(); track $index) {
+        <li (click)="select(option)" class="editable__option"
+            [class.editable__option_selected]="option === currentValue()" tabindex="0">
+            {{ option }}
+        </li>
+        }
+    </ul>
+    }
 </div>
 }
