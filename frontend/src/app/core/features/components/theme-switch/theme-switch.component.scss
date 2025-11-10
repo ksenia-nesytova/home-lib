@@ -30,7 +30,7 @@ $translate-x: calc($width - $inner-circle - $padding * 2);
         left: 0;
         right: 0;
         bottom: 0;
-        border-radius: $height / 2;
+        border-radius: calc($height / 2);
         background-color: var(--color-accent);
         transition: background-color 0.3s ease;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

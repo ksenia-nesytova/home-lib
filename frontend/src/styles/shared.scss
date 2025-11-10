@@ -1,3 +1,5 @@
+@use 'breakpoints' as *;
+
 /** Font Size **/
 $font-xs: 0.85rem;
 $font-s: 1rem; // 14px
@@ -63,13 +65,17 @@ $space-xl: $base-space * 8; //2
   background: var(--color-surface);
   color: var(--color-text);
 
-  @include hl-padding($space-m, $space-l);
+  @include hl-padding($space-s, $space-m);
   @include hl-shadow(sm);
 
   transition:
     box-shadow 0.3s ease,
     border-color 0.3s ease,
     transform 0.3s ease;
+
+  @include device-s {
+    @include hl-padding($space-m, $space-l);
+  }
 
   &:hover {
     @include hl-shadow(md);
