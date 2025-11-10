@@ -28,9 +28,12 @@ a {
 }
 
 input,
-textarea,
 select {
     @include hl-input;
+}
+
+textarea {
+    @include hl-input(true);
 }
 
 option {
