@@ -1,0 +1,10 @@
+<div class="uploader">
+    @if (preview()) {
+    <img [src]="preview()" [alt]="placeholder()" class="uploader__img" />
+    }
+
+    <label class="uploader__btn">
+        <input type="file" accept="image/*" hidden (change)="onFileSelected($event)" />
+        <mat-icon svgIcon="HL-miscUpload" />
+    </label>
+</div>
