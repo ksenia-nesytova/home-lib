@@ -1,11 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { NavbarService } from '@app/services/navbar.service';
 import { MatIconModule } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   imports: [
-    MatIconModule
+    MatIconModule,
+    RouterLink
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'

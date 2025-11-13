@@ -7,14 +7,12 @@
     justify-content: space-between;
 
     height: 50px;
-    // padding: 0 16px;
 
     @include hl-padding(0, $space-l);
 
     background: var(--color-surface);
     border-bottom: 3px solid var(--color-primary);
     box-shadow: var(--shadow-sm);
-
 
     font-size: 1.3rem;
     font-weight: 700;
@@ -36,9 +34,7 @@
 
         border-radius: 8px;
 
-        // padding: 0 8px;
         @include hl-padding(0, $space-xs);
-
 
         color: var(--color-primary);
         transition: all 0.2s ease;
@@ -59,16 +55,19 @@
 
 .burger {
     display: block;
+    cursor: pointer;
+    transition: color 0.2s ease;
 
     @include device-xs {
         display: none;
     }
 
-    cursor: pointer;
-
-    transition: color 0.2s ease;
-
     &:hover {
         color: var(--color-accent);
     }
+}
+
+.logo {
+    font-size: 1.3rem;
+    font-weight: 700;
 }

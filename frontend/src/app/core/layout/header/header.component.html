@@ -1,7 +1,9 @@
 <header class="header">
     <mat-icon class="burger" (click)="navbarService.toggleMobile()" svgIcon="HL-navigationMenu" />
 
-    <div class="logo">MyLibrary</div>
+    <a [routerLink]="['/']" class="logo">
+        MyLibrary
+    </a>
 
     <!-- <nav class="nav__links">
         <a href="#" class="nav__link">Home</a>
