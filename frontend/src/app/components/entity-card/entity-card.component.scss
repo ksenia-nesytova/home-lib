@@ -1,8 +1,8 @@
-@use 'shared' as shared;
-@use 'breakpoints' as breakpoints;
+@use 'shared' as *;
+@use 'breakpoints' as *;
 
 .card {
-    @include shared.hl-card;
+    @include hl-card;
 
     &__header {
         display: flex;
@@ -10,8 +10,19 @@
         gap: 8px;
 
         time {
-            @include shared.hl-hint;
+            @include hl-hint;
             font-style: italic;
+        }
+    }
+
+    &__header-fields {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+
+        @include device-s {
+            flex-direction: column;
+            gap: 4px;
         }
     }
 
@@ -24,12 +35,22 @@
 
     &__input-block {
         display: flex;
-        flex-direction: row;
-        align-items: center;
+        flex-direction: column;
+        align-items: flex-start;
 
-        gap: 4px;
+        flex-basis: 45%;
 
-        @include shared.hl-paragraph;
+        @include hl-paragraph;
+
+        min-height: 32px; // height of input
+
+
+        @include device-s {
+            flex-direction: row;
+            align-items: center;
+            gap: 4px;
+            width: 100%;
+        }
     }
 
     &__footer {
@@ -39,24 +60,15 @@
     }
 
     &__footer-text {
-        @include shared.hl-hint;
+        flex-direction: column;
+        align-items: flex-start;
+
+        @include hl-hint;
         flex: 1;
     }
 
     &__cover {
-        display: block;
-        width: 100%;
-        height: auto;
-        border-radius: 4px;
-        filter: drop-shadow(0 0 2px var(--color-accent));
-        transition: filter 0.3s ease;
-
         max-height: 300px;
-        object-fit: cover;
-
-        &:hover {
-            filter: drop-shadow(0 0 6px var(--color-primary));
-        }
     }
 
     &__section {

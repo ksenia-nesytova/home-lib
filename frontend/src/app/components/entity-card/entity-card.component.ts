@@ -7,6 +7,7 @@ import { EditableSelectComponent } from '@app/shared/editable-select/editable-se
 import { StarRatingComponent } from '@app/shared/star-rating/star-rating.component';
 import { TagListComponent } from '@app/shared/tag-list/tag-list.component';
 import { DatePipe } from '@angular/common';
+import { UploaderComponent } from "@app/shared/uploader/uploader.component";
 
 @Component({
   selector: 'app-entity-card',
@@ -16,7 +17,8 @@ import { DatePipe } from '@angular/common';
     EditableSelectComponent,
     StarRatingComponent,
     TagListComponent,
-    DatePipe
+    DatePipe,
+    UploaderComponent
   ],
   templateUrl: './entity-card.component.html',
   styleUrl: './entity-card.component.scss'
@@ -60,4 +62,17 @@ export class EntityCardComponent {
   protected onMediaTypeChange(mediaType: string) {
     this.currentCard.set({ ...this.currentCard(), mediaType: mediaType as MediaType });
   }
+
+  protected getCoverImage(): string {
+    return this.currentCard().coverImage || 'assets/cover.jpg';
+  }
+
+  protected onImageUpdated(newImage: string) {
+    const updatedCard = { ...this.currentCard(), coverImage: newImage };
+    // ADD: save logic
+    //TEMP
+    this.currentCard().coverImage = newImage;
+  }
+
+
 }

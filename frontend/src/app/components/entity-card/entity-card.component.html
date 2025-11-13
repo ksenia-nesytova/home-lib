@@ -1,34 +1,39 @@
 <article class="card">
-    <img [src]="currentCard().coverImage" alt="Cover of The Tragedy of Julius Caesar" class="card__cover" />
-
+    <div class="card__cover">
+        <app-uploader [imageUrl]="getCoverImage()" [placeholder]="`Cover of {{ currentCard().title }}`"
+            (imageChange)="onImageUpdated($event)" />
+    </div>
     <header class="card__header">
         <h2>
             <app-editable-field [value]="currentCard().title || ''" [isEditable]="isEditable()"
                 (valueChange)="updateField('title', $event)" />
         </h2>
         <time>{{currentCard().dateAdded | date:'mediumDate' }}</time>
-        <div class="card__input-block">
-            <label class="card__label">Author:</label>
-            <app-editable-field [value]="currentCard().author || ''" [isEditable]="isEditable()"
-                (valueChange)="updateField('author', $event)" />
-        </div>
-        <div class="card__input-block">
-            <label class="card__label">Media type:</label>
 
-            <app-editable-select [options]="MEDIA_OPTIONS" [value]="currentCard().mediaType" [isEditable]="isEditable()"
-                (valueChange)="onMediaTypeChange($event)" />
-        </div>
+        <div class="card__header-fields">
+            <div class="card__input-block">
+                <label class="card__label">Author:</label>
+                <app-editable-field [value]="currentCard().author || ''" [isEditable]="isEditable()"
+                    (valueChange)="updateField('author', $event)" />
+            </div>
+            <div class="card__input-block">
+                <label class="card__label">Media type:</label>
 
-        <div class="card__input-block">
-            <label class="card__label">Creation date:</label>
-            <app-editable-field [value]="currentCard().creationDate || ''" [isEditable]="isEditable()"
-                (valueChange)="updateField('creationDate', $event)" />
-        </div>
+                <app-editable-select [options]="MEDIA_OPTIONS" [value]="currentCard().mediaType"
+                    [isEditable]="isEditable()" (valueChange)="onMediaTypeChange($event)" />
+            </div>
 
-        <div class="card__input-block">
-            <label class="card__label">Language:</label>
-            <app-editable-field [value]="currentCard().language || ''" [isEditable]="isEditable()"
-                (valueChange)="updateField('language', $event)" />
+            <div class="card__input-block">
+                <label class="card__label">Creation date:</label>
+                <app-editable-field [value]="currentCard().creationDate || ''" [isEditable]="isEditable()"
+                    (valueChange)="updateField('creationDate', $event)" />
+            </div>
+
+            <div class="card__input-block">
+                <label class="card__label">Language:</label>
+                <app-editable-field [value]="currentCard().language || ''" [isEditable]="isEditable()"
+                    (valueChange)="updateField('language', $event)" />
+            </div>
         </div>
     </header>
 
@@ -55,13 +60,13 @@
     <hr class="divider">
 
     <footer class="card__footer">
-        <div class="card__input-block card__footer-text">
+        <div class="card__footer-text">
             Location: <app-editable-field [value]="currentCard().location || ''" class="card__footer-text"
                 [isEditable]="isEditable()" (valueChange)="updateField('location', $event)" />
         </div>
 
         <div class="card__input-block">
-            <p class="card__footer-text">My rating:</p>
+            <p class="card__footer-text">Rating:</p>
             <app-star-rating [isEditable]="isEditable()" [inputRating]="currentCard().rating || 0" [maxRating]="5"
                 (valueChange)="updateField('rating', $event)" />
         </div>
