@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { NavbarService } from '@app/services/navbar.service';
+import { NavbarService } from '@app/core/services/navbar.service';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 

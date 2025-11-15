@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { NavbarService } from '@services/navbar.service';
-import { ThemeSwitchComponent } from "@app/core/features/components/theme-switch/theme-switch.component";
+import { NavbarService } from '@app/core/services/navbar.service';
+import { ThemeSwitchComponent } from '@app/core/layout/theme-switch/theme-switch.component';
 import { MatIconModule } from '@angular/material/icon';
 
 export interface NavLink {

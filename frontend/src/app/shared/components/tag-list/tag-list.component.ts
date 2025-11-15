@@ -1,6 +1,6 @@
 import { Component, input, InputSignal, output } from '@angular/core';
-import { TagComponent } from '../tag/tag.component';
-import { EditableFieldComponent } from '../editable-field/editable-field.component';
+import { TagComponent } from '@app/shared/components/tag/tag.component';
+import { EditableFieldComponent } from '@app/shared/components/editable-field/editable-field.component';
 
 @Component({
   selector: 'app-tag-list',

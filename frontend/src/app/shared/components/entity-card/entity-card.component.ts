@@ -1,13 +1,13 @@
 import { Component, input, InputSignal, signal, WritableSignal } from '@angular/core';
-import { EditableFieldComponent } from '@app/shared/editable-field/editable-field.component';
+import { EditableFieldComponent } from '@app/shared/components/editable-field/editable-field.component';
 import { Card } from '@app/shared/models/Card';
 import { MediaType } from '@app/shared/enums/media-type';
 import { FormsModule } from '@angular/forms';
-import { EditableSelectComponent } from '@app/shared/editable-select/editable-select.component';
-import { StarRatingComponent } from '@app/shared/star-rating/star-rating.component';
-import { TagListComponent } from '@app/shared/tag-list/tag-list.component';
+import { EditableSelectComponent } from '@app/shared/components/editable-select/editable-select.component';
+import { StarRatingComponent } from '@app/shared/components/star-rating/star-rating.component';
+import { TagListComponent } from '@app/shared/components/tag-list/tag-list.component';
 import { DatePipe } from '@angular/common';
-import { UploaderComponent } from "@app/shared/uploader/uploader.component";
+import { UploaderComponent } from "@app/shared/components/uploader/uploader.component";
 
 @Component({
   selector: 'app-entity-card',

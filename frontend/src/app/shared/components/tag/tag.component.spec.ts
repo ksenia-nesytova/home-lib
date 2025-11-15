@@ -10,7 +10,7 @@ describe('TagComponent', () => {
     await TestBed.configureTestingModule({
       imports: [TagComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(TagComponent);
     component = fixture.componentInstance;

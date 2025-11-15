@@ -1,6 +1,6 @@
 import { Component, effect, inject, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { ThemeSwitchService } from '@app/services/theme-switch.service';
+import { ThemeSwitchService } from '@app/core/services/theme-switch.service';
 import { HLTheme } from '@app/shared/enums/HLTheme';
 
 @Component({

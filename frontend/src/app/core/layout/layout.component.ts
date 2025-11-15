@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { HeaderComponent } from '@app/core/layout/header/header.component';
 import { SideNavComponent } from "@app/core/layout/side-nav/side-nav.component";
-import { NavbarService } from '@app/services/navbar.service';
+import { NavbarService } from '@app/core/services/navbar.service';
 
 @Component({
   selector: 'app-layout',
