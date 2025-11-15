@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatIconRegistry } from '@angular/material/icon';
-import { EntityCardComponent } from '@app/shared/components/entity-card/entity-card.component';
 import { LayoutComponent } from '@app/core/layout/layout.component';
 import { iconPaths } from '../assets/icons/icons';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -9,7 +8,6 @@ import { DomSanitizer } from '@angular/platform-browser';
   selector: 'app-root',
   imports: [
     RouterOutlet,
-    EntityCardComponent,
     LayoutComponent
   ],
   templateUrl: './app.component.html',
