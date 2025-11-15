@@ -1,4 +1,4 @@
-import { Component, input, output, signal } from '@angular/core';
+import { Component, effect, input, output, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
@@ -12,9 +12,18 @@ import { MatIconModule } from '@angular/material/icon';
 export class UploaderComponent {
   public imageUrl = input<string>('');
   public imageChange = output<string>();
+  public imageError = output<void>();
 
   public preview = signal<string>('');
   public placeholder = input<string>('No image available');
+
+  constructor() {
+    effect(() => {
+      if (!this.preview() || this.preview() === this.imageUrl()) {
+        this.preview.set(this.imageUrl());
+      }
+    });
+  }
 
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -28,5 +37,10 @@ export class UploaderComponent {
       this.imageChange.emit(result);
     };
     reader.readAsDataURL(file);
+  }
+
+  emitError() {
+    this.preview.set('');
+    this.imageError.emit();
   }
 }

@@ -1,6 +1,8 @@
 <div class="uploader">
     @if (preview()) {
-    <img [src]="preview()" [alt]="placeholder()" class="uploader__img" />
+    <img [src]="preview()" [alt]="placeholder()" class="uploader__img" (error)="emitError()" />
+    } @else {
+    <div class="uploader__placeholder">{{ placeholder() }}</div>
     }
 
     <label class="uploader__btn">

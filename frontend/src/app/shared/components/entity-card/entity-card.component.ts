@@ -1,4 +1,4 @@
-import { Component, input, InputSignal, signal, WritableSignal } from '@angular/core';
+import { Component, effect, input, InputSignal, signal, WritableSignal } from '@angular/core';
 import { EditableFieldComponent } from '@app/shared/components/editable-field/editable-field.component';
 import { Card } from '@app/shared/models/Card';
 import { MediaType } from '@app/shared/enums/media-type';
@@ -24,33 +24,32 @@ import { UploaderComponent } from "@app/shared/components/uploader/uploader.comp
   styleUrl: './entity-card.component.scss'
 })
 export class EntityCardComponent {
-
-  protected readonly MEDIA_TYPES = MediaType;
   protected readonly MEDIA_OPTIONS = Object.values(MediaType);
-  protected mediaOptionSelected = this.MEDIA_TYPES.PLAY;
-
-
-  protected mockCardData: Card = {
-    id: '1',
-    coverImage: 'assets/cover.jpg',
-    title: 'The Tragedy of Julius Caesar',
-    author: 'William Shakespeare',
-    mediaType: this.MEDIA_TYPES.PLAY,
-    creationDate: '1599',
-    language: 'English',
-    tags: ['Tragedy', 'Shakespeare', 'Julius Caesar', 'Brutus'],
-    description: 'It\'s a play about conspiracy against Julius Caesar.',
-    notes: 'My favorite performance was at the Globe. The betrayal themes feel very real to me.',
-    location: 'shelf B2',
-    rating: 4,
-    dateAdded: new Date('2024-05-12'),
-    isPhysicalCopy: true
-  };
-
-  protected card: InputSignal<Card> = input(this.mockCardData);
-  protected currentCard: WritableSignal<Card> = signal(this.card());
 
   public isEditable: InputSignal<boolean> = input(true);
+  public card: InputSignal<Card | null> = input<Card | null>(null);
+  protected currentCard: WritableSignal<Card> = signal({
+    id: '',
+    title: 'Untitled',
+    mediaType: MediaType.BOOK,
+    tags: []
+  });
+
+  protected coverImage: WritableSignal<string> = signal('assets/cover.jpg');
+
+  constructor() {
+    effect(() => {
+      if (this.card()) {
+        this.currentCard.set(this.card()!);
+        this.coverImage.set(this.currentCard().coverImage || 'assets/cover.jpg');
+      }
+    });
+  }
+
+  ngOnInit() {
+    this.coverImage.set(this.getCoverImage());
+  }
+
 
   protected updateField(fieldName: string, newValue: string | number | string[]): void {
     this.currentCard.set({ ...this.currentCard(), [fieldName]: newValue });
@@ -69,10 +68,14 @@ export class EntityCardComponent {
 
   protected onImageUpdated(newImage: string) {
     const updatedCard = { ...this.currentCard(), coverImage: newImage };
+    this.currentCard.set(updatedCard);
+    this.coverImage.set(newImage);
     // ADD: save logic
     //TEMP
     this.currentCard().coverImage = newImage;
   }
 
-
+  protected onImageError(): void {
+    this.coverImage.set('assets/cover.jpg');
+  }
 }

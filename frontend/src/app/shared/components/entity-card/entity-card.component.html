@@ -1,7 +1,7 @@
 <article class="card">
     <div class="card__cover">
-        <app-uploader [imageUrl]="getCoverImage()" [placeholder]="`Cover of {{ currentCard().title }}`"
-            (imageChange)="onImageUpdated($event)" />
+        <app-uploader [imageUrl]="coverImage()" (imageError)="onImageError()" (imageChange)="onImageUpdated($event)"
+            [placeholder]="`Cover of ${currentCard().title}`" />
     </div>
     <header class="card__header">
         <h2>
