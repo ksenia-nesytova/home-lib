@@ -9,6 +9,8 @@ import { TagListComponent } from '@app/shared/components/tag-list/tag-list.compo
 import { DatePipe } from '@angular/common';
 import { UploaderComponent } from "@app/shared/components/uploader/uploader.component";
 
+const DEFAULT_IMAGE = 'assets/USS_Enterprise.png';
+
 @Component({
   selector: 'app-entity-card',
   imports: [
@@ -35,13 +37,13 @@ export class EntityCardComponent {
     tags: []
   });
 
-  protected coverImage: WritableSignal<string> = signal('assets/cover.jpg');
+  protected coverImage: WritableSignal<string> = signal(DEFAULT_IMAGE);
 
   constructor() {
     effect(() => {
       if (this.card()) {
         this.currentCard.set(this.card()!);
-        this.coverImage.set(this.currentCard().coverImage || 'assets/cover.jpg');
+        this.coverImage.set(this.currentCard().coverImage || DEFAULT_IMAGE);
       }
     });
   }
@@ -63,7 +65,7 @@ export class EntityCardComponent {
   }
 
   protected getCoverImage(): string {
-    return this.currentCard().coverImage || 'assets/cover.jpg';
+    return this.currentCard().coverImage || DEFAULT_IMAGE;
   }
 
   protected onImageUpdated(newImage: string) {
@@ -76,6 +78,6 @@ export class EntityCardComponent {
   }
 
   protected onImageError(): void {
-    this.coverImage.set('assets/cover.jpg');
+    this.coverImage.set(DEFAULT_IMAGE);
   }
 }
