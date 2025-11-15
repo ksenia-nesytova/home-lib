@@ -8,6 +8,7 @@ export interface Card {
     mediaType: MediaType;
     creationDate?: string; // or Date
     language?: string;
+    originalLanguage?: string;
     tags: string[];
     description?: string;
     notes?: string;
