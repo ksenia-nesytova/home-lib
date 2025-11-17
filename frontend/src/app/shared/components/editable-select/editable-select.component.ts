@@ -1,4 +1,4 @@
-import { Component, effect, HostListener, input, InputSignal, output, signal, WritableSignal } from '@angular/core';
+import { Component, effect, ElementRef, HostListener, input, InputSignal, output, signal, WritableSignal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -24,14 +24,13 @@ export class EditableSelectComponent {
 
   public valueChange = output<string>();
 
-  constructor() {
+  constructor(private elementRef: ElementRef) {
     effect(() => {
       if (!this.isEditing()) {
         this.currentValue.set(this.value());
       }
     });
   }
-
 
   protected toggleEditMode(): void {
     if (this.isEditable()) {
@@ -54,19 +53,20 @@ export class EditableSelectComponent {
   protected select(option: string): void {
     this.currentValue.set(option);
     this.dropdownOpen.set(false);
+
     if (option !== this.value()) {
       this.valueChange.emit(option);
     }
     this.isEditing.set(false);
   }
 
-  @HostListener('document:click', ['$event.target'])
-  onDocumentClick(target: EventTarget | null) {
-    if (!target) return;
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: Event) {
+    const host = this.elementRef.nativeElement as HTMLElement;
+    const target = event.target as Node;
 
-    const host = document.querySelector('app-editable-select');
-    if (host instanceof HTMLElement && !host.contains(target as Node)) {
-      this.toggleDropdown();
+    if (!host.contains(target)) {
+      this.dropdownOpen.set(false);
       this.isEditing.set(false);
     }
   }

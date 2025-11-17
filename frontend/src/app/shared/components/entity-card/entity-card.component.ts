@@ -41,7 +41,7 @@ export class EntityCardComponent {
 
   constructor() {
     effect(() => {
-      if (this.card()) {
+      if (this.card() && !this.currentCard().id) {
         this.currentCard.set(this.card()!);
         this.coverImage.set(this.currentCard().coverImage || DEFAULT_IMAGE);
       }
@@ -61,7 +61,10 @@ export class EntityCardComponent {
   }
 
   protected onMediaTypeChange(mediaType: string) {
-    this.currentCard.set({ ...this.currentCard(), mediaType: mediaType as MediaType });
+    this.currentCard.set({
+      ...this.currentCard(),
+      mediaType: mediaType as MediaType
+    });
   }
 
   protected getCoverImage(): string {
