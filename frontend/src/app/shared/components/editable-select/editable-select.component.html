@@ -1,4 +1,4 @@
-@if (!isEditing()) {
+@if (!isEditing() && !isEditingView()) {
 <p (click)="toggleEditMode()" [class.non-editable]="!isEditable()">
     {{ currentValue() || placeholder() }}
 </p>

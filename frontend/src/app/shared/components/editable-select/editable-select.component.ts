@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class EditableSelectComponent {
   public isEditable: InputSignal<boolean> = input(true);
+  public isEditingView: InputSignal<boolean> = input(false);
 
   public value: InputSignal<string> = input('');
   public placeholder: InputSignal<string> = input('Click to edit');
