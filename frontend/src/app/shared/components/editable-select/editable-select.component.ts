@@ -15,15 +15,15 @@ export class EditableSelectComponent {
   public isEditable: InputSignal<boolean> = input(true);
   public isEditingView: InputSignal<boolean> = input(false);
 
-  public value: InputSignal<string> = input('');
+  public value: InputSignal<string | null> = input<string | null>('');
   public placeholder: InputSignal<string> = input('Click to edit');
   public options: InputSignal<string[]> = input<string[]>([]);
 
   protected isEditing: WritableSignal<boolean> = signal(false);
-  protected currentValue: WritableSignal<string> = signal('');
+  protected currentValue: WritableSignal<string | null> = signal(null);
   protected dropdownOpen: WritableSignal<boolean> = signal(false);
 
-  public valueChange = output<string>();
+  public valueChange = output<string | null>();
 
   constructor(private elementRef: ElementRef) {
     effect(() => {

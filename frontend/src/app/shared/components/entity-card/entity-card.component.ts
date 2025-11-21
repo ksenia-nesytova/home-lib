@@ -60,7 +60,7 @@ export class EntityCardComponent {
     // this.cardService.updateCardField(this.card.id, fieldName, newValue).subscribe();
   }
 
-  protected onMediaTypeChange(mediaType: string) {
+  protected onMediaTypeChange(mediaType: string | null) {
     this.currentCard.set({
       ...this.currentCard(),
       mediaType: mediaType as MediaType

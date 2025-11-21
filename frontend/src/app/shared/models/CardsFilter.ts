@@ -5,7 +5,7 @@ export interface CardFilters {
 
   title?: string | null;
   author?: string | null;
-  mediaType?: MediaType | null;
+  mediaType: string | null;
   language?: string | null;
   originalLanguage?: string | null;
   tags?: string[];
