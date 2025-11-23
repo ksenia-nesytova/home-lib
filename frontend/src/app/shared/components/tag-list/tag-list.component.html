@@ -4,7 +4,6 @@
     }
 
     @if (isEditable()) {
-
     @if (showAddInput) {
     <app-editable-field [value]="''" [placeholder]="'Start typing...'" (valueChange)="addTag($event)" />
     } @else {
