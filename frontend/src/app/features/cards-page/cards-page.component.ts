@@ -2,10 +2,12 @@ import { Component, OnInit, signal } from '@angular/core';
 import { CardsWrapperComponent } from "@app/shared/components/cards-wrapper/cards-wrapper.component";
 import { MediaType } from '@app/shared/enums/media-type';
 import { Card } from '@app/shared/models/Card';
+import { CardsFiltersComponent } from './cards-filters/cards-filters.component';
+import { CardFilters } from '@app/shared/models/CardsFilter';
 
 @Component({
   selector: 'app-cards-page',
-  imports: [CardsWrapperComponent],
+  imports: [CardsWrapperComponent, CardsFiltersComponent],
   templateUrl: './cards-page.component.html',
   styleUrl: './cards-page.component.scss'
 })
@@ -263,5 +265,10 @@ export class CardsPageComponent implements OnInit {
         isPhysicalCopy: true
       }
     ]);
+  }
+
+  protected applyFilters(filters: CardFilters) {
+    console.log(filters, 111);
+    const current = this.cards();
   }
 }
