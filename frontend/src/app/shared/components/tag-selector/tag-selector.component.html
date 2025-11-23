@@ -1,0 +1,21 @@
+<div class="selector" (clickOutside)="closeList()">
+    <div class="selector__tags">
+        <input [formControl]="searchControl" placeholder="Add tag…" (focus)="focusInput()" />
+    </div>
+
+    @if (isDropdownOpen() && suggestions().length > 0) {
+    <ul class="selector__options">
+        @for (tag of suggestions(); track tag) {
+        <li (click)="addTag(tag)" class="selector__option">
+            {{ tag }}
+        </li>
+        }
+    </ul>
+    }
+
+    <div class="selector__tag-list">
+        @for (tag of selectedTags(); track $index) {
+        <app-tag [value]="tag" [isRemovable]="true" (removed)="removeTag(tag)" />
+        }
+    </div>
+</div>

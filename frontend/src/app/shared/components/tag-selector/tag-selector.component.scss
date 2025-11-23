@@ -1,0 +1,25 @@
+@use 'shared' as *;
+
+.selector {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    &__tag-list {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0;
+        list-style: none;
+    }
+
+    &__options {
+        @include hl-list;
+    }
+
+    &__option {
+        @include hl-option;
+    }
+}
