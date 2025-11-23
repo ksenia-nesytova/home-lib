@@ -1,0 +1,23 @@
+<div class="filters">
+    <input type="text" placeholder="Search..." [value]="filters().search"
+        (input)="updateFilters('search', $any($event.target).value)" id="search" class="filters__full-width" />
+
+    <input type="text" placeholder="Language..." [value]="filters().language"
+        (input)="updateFilters('language', $any($event.target).value)" id="language" class="filters__input" />
+
+    <input type="text" placeholder="Author..." [value]="filters().author"
+        (input)="updateFilters('author', $any($event.target).value)" id="author" class="filters__input" />
+
+    <input type="text" placeholder="Title..." [value]="filters().title"
+        (input)="updateFilters('title', $any($event.target).value)" id="author" class="filters__input" />
+
+
+    <app-editable-select [options]="mediaOptions" [value]="filters().mediaType"
+        (valueChange)="onMediaTypeChange($event)" [isEditingView]="true" [placeholder]="'Select media type'"
+        class="filters__input" />
+
+    <app-tag-selector [selectedTags]="filters().tags" (tagsChange)="updateFilters('tags', $event)"
+        class="filters__input" />
+
+    <button class="filters__btn">Search</button>
+</div>

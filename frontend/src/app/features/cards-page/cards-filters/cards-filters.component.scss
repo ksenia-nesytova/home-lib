@@ -1,0 +1,27 @@
+@use 'shared' as *;
+@use 'breakpoints' as *;
+
+.filters {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 14px;
+
+    padding: $space-s 0;
+
+    @include device-s {
+        padding: $space-m 0;
+    }
+
+    &__input {
+        flex: 1 1 240px;
+    }
+
+    &__full-width {
+        width: 100%;
+    }
+
+    &__btn {
+        @include hl-btn(small);
+    }
+}
