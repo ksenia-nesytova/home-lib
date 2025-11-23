@@ -21,5 +21,9 @@
 
     &__option {
         @include hl-option;
+
+        &_selected {
+            @include hl-option_selected;
+        }
     }
 }
