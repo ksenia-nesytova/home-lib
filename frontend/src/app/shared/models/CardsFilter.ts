@@ -1,5 +1,3 @@
-import { MediaType } from "@app/shared/enums/media-type";
-
 export interface CardFilters {
   search?: string | null;
 
@@ -8,8 +6,7 @@ export interface CardFilters {
   mediaType: string | null;
   language?: string | null;
   originalLanguage?: string | null;
-  tags?: string[];
-
+  tags: string[] | null;
   rating?: number | null;
   dateAdded?: Date | null;
   isPhysicalCopy?: boolean | null;
