@@ -187,16 +187,28 @@ $space-xl: $base-space * 8; // 2rem = 32px
   border-radius: 1px;
 }
 
-
-@mixin btn-icon-only {
+/* BUTTONS */
+@mixin hl-btn($size: medium, $type: primary) {
   display: inline-flex;
   align-items: center;
   justify-content: center;
 
+  border: none;
+  cursor: pointer;
+
+  text-align: center;
+
+  @include hl-btn-size($size);
+  @include hl-btn-type($type);
+}
+
+@mixin hl-btn-icon-only($type: outline) {
+  @include hl-btn(medium, $type);
+
   border: 1px solid var(--color-border);
   border-radius: 8px;
 
-  @include hl-padding($space-m);
+  padding: $space-m;
   height: 40px;
   width: 40px;
 
@@ -215,5 +227,82 @@ $space-xl: $base-space * 8; // 2rem = 32px
     color: var(--color-surface);
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
     transform: scale(0.97);
+  }
+}
+
+/* BUTTON SIZES */
+@mixin hl-btn-size($size) {
+  border-radius: 8px;
+
+  @if $size ==small {
+    height: 32px;
+    padding: 0 12px;
+    font-size: 0.85rem;
+  }
+
+  @else if $size ==medium {
+    height: 40px;
+    padding: 0 16px;
+    font-size: 0.95rem;
+  }
+
+  @else if $size ==large {
+    height: 48px;
+    padding: 0 20px;
+    font-size: 1rem;
+  }
+}
+
+/* BUTTON TYPES */
+@mixin hl-btn-type($type) {
+  @if $type ==primary {
+    background-color: var(--color-primary);
+    color: var(--color-surface);
+
+    &:hover {
+      background-color: var(--color-accent);
+      box-shadow: var(--shadow-sm);
+    }
+
+    &:active {
+      background-color: var(--color-secondary);
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  @else if $type ==secondary {
+    background-color: var(--color-surface-dark);
+    color: var(--color-text);
+
+    &:hover {
+      background-color: var(--color-highlight);
+    }
+
+    &:active {
+      background-color: var(--color-secondary);
+      color: var(--color-surface);
+    }
+  }
+
+  @else if $type ==outline {
+    background-color: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+
+    &:hover {
+      background-color: var(--color-surface-dark);
+      border-color: var(--color-primary);
+    }
+
+    &:active {
+      background-color: var(--color-secondary);
+      color: var(--color-surface);
+    }
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
   }
 }
