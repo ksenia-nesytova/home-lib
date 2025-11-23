@@ -17,7 +17,8 @@
 
     transition: width 0.3s ease, transform 0.3s ease;
     transform: translateX(-100%);
-    @include hl-padding(0, $space-xs);
+
+    padding: 0 $space-xs;
 
     &__top {
         display: flex;

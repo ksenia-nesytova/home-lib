@@ -8,7 +8,7 @@
 
     height: 50px;
 
-    @include hl-padding(0, $space-l);
+    padding: 0 $space-l;
 
     background: var(--color-surface);
     border-bottom: 3px solid var(--color-primary);
@@ -34,7 +34,7 @@
 
         border-radius: 8px;
 
-        @include hl-padding(0, $space-xs);
+        padding: 0 $space-xs;
 
         color: var(--color-primary);
         transition: all 0.2s ease;
