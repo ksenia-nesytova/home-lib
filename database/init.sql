@@ -1,15 +1,3 @@
-CREATE TABLE entities (
-  id SERIAL PRIMARY KEY,
-  title VARCHAR(255) NOT NULL,
-  entities_type_id INT NOT NULL,
-  creation_date DATE,
-  original_language_id INT,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (entities_type_id) REFERENCES entities_types(id),
-  FOREIGN KEY (original_language_id) REFERENCES languages(id) 
-);
-
 
 CREATE TABLE entities_types (
   id SERIAL PRIMARY KEY,
@@ -31,6 +19,19 @@ CREATE TABLE tag_structure (
   parent_tag_id INT REFERENCES tags(id) ON DELETE CASCADE,   -- Parent tag (e.g., France, Cities)
   PRIMARY KEY (child_tag_id, parent_tag_id)                   -- Composite key
 );
+
+CREATE TABLE entities (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  entities_type_id INT NOT NULL,
+  creation_date DATE,
+  original_language_id INT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (entities_type_id) REFERENCES entities_types(id),
+  FOREIGN KEY (original_language_id) REFERENCES languages(id) 
+);
+
 
 
 CREATE TABLE entities_tags (
