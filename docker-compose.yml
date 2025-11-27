@@ -1,4 +1,3 @@
-version: "3.8"
 services:
   frontend:
     container_name: homelib_front
@@ -28,7 +27,7 @@ services:
 
   postgres:
     container_name: homelib_pg
-    image: postgres
+    image: postgres:18
     environment:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
@@ -36,7 +35,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql
       - ./database:/docker-entrypoint-initdb.d
 
 volumes:

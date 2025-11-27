@@ -1,4 +1,4 @@
-# Use official Node.js 20 LTS image
+# Use official Node.js 22 LTS image
 FROM node:22
 
 # Set working directory
