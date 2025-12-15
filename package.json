@@ -2,8 +2,5 @@
   "devDependencies": {
     "@types/d3": "^7.4.3"
   },
-  "dependencies": {
-    "@nestjs/config": "^4.0.2",
-    "@nestjs/swagger": "^11.2.3"
-  }
+  "dependencies": {}
 }
