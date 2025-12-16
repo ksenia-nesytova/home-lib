@@ -1,26 +1,47 @@
-
-CREATE TABLE entities_types (
+CREATE TABLE IF NOT EXISTS languages (
   id SERIAL PRIMARY KEY,
-  name VARCHAR(50) NOT NULL UNIQUE
-  );
+  code VARCHAR(10) NOT NULL UNIQUE,    -- e.g., 'en', 'fr', 'es'
+  name VARCHAR(100) NOT NULL           -- e.g., 'English', 'French', 'Spanish'
+);
+
+-- TAG CATEGORIES
+CREATE TABLE IF NOT EXISTS categories (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL UNIQUE,
+  description TEXT
+);
 
 
-CREATE TABLE tags (
+CREATE TABLE IF NOT EXISTS tags (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL UNIQUE,
   parent_id INT,
   category_id INT,
   description TEXT, 
-  CONSTRAINT fk_parent FOREIGN KEY (parent_id) REFERENCES tags(id) ON DELETE SET NULL
+  CONSTRAINT fk_parent FOREIGN KEY (parent_id) REFERENCES tags(id) ON DELETE SET NULL,
+  FOREIGN KEY (category_id) REFERENCES categories(id)
 );
 
-CREATE TABLE tag_structure (
+CREATE TABLE IF NOT EXISTS tag_structure (
   child_tag_id INT REFERENCES tags(id) ON DELETE CASCADE,    -- Child tag (e.g., Paris, Eiffel Tower)
   parent_tag_id INT REFERENCES tags(id) ON DELETE CASCADE,   -- Parent tag (e.g., France, Cities)
   PRIMARY KEY (child_tag_id, parent_tag_id)                   -- Composite key
 );
 
-CREATE TABLE entities (
+CREATE TABLE IF NOT EXISTS entities_tags (
+  entities_id INT REFERENCES entities(id),
+  tag_id INT REFERENCES tags(id),
+  PRIMARY KEY (entities_id, tag_id)
+);
+
+-- MEDIA TYPES (book, play, etc.)
+CREATE TABLE IF NOT EXISTS entities_types (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(50) NOT NULL UNIQUE
+  );
+
+
+CREATE TABLE IF NOT EXISTS entities (
   id SERIAL PRIMARY KEY,
   title VARCHAR(255) NOT NULL,
   entities_type_id INT NOT NULL,
@@ -32,28 +53,32 @@ CREATE TABLE entities (
   FOREIGN KEY (original_language_id) REFERENCES languages(id) 
 );
 
-
-
-CREATE TABLE entities_tags (
-  entities_id INT REFERENCES entities(id),
-  tag_id INT REFERENCES tags(id),
-  PRIMARY KEY (entities_id, tag_id)
-);
-
-CREATE TABLE categories (
+-- COVER IMAGES (optional)
+CREATE TABLE IF NOT EXISTS covers (
   id SERIAL PRIMARY KEY,
-  name VARCHAR(255) NOT NULL UNIQUE,
-  description TEXT
+  path VARCHAR(500) NOT NULL UNIQUE
 );
 
-CREATE TABLE languages (
+-- LOCATIONS (shelf N1, L3, etc.)
+CREATE TABLE IF NOT EXISTS locations (
   id SERIAL PRIMARY KEY,
-  code VARCHAR(10) NOT NULL UNIQUE,    -- e.g., 'en', 'fr', 'es'
-  name VARCHAR(100) NOT NULL           -- e.g., 'English', 'French', 'Spanish'
+  name VARCHAR(100) NOT NULL UNIQUE
 );
 
+-- RATINGS
+CREATE TABLE IF NOT EXISTS ratings (
+  id SERIAL PRIMARY KEY,
+  value INT CHECK (value BETWEEN 1 AND 5)
+);
 
-CREATE TABLE book_details (
+-- NOTES (each entity can have a personal note)
+CREATE TABLE IF NOT EXISTS notes (
+  id SERIAL PRIMARY KEY,
+  entities_id INT NOT NULL REFERENCES entities(id) ON DELETE CASCADE,
+  content TEXT
+);
+
+CREATE TABLE IF NOT EXISTS book_details (
   entities_id INT PRIMARY KEY,
   author VARCHAR(255),
   publisher VARCHAR(255),
@@ -63,20 +88,153 @@ CREATE TABLE book_details (
   FOREIGN KEY (entities_id) REFERENCES entities(id)
 );
 
-
-
 -- Indexes for better performance
-CREATE INDEX idx_entities_title ON entities(title);
-CREATE INDEX idx_tags_name ON tags(name);
-CREATE INDEX idx_entities_tags ON entities_tags(entities_id, tag_id);
+CREATE INDEX IF NOT EXISTS idx_entities_title ON entities(title);
+CREATE INDEX IF NOT EXISTS idx_tags_name ON tags(name);
+CREATE INDEX IF NOT EXISTS idx_entities_tags ON entities_tags(entities_id, tag_id);
 
+
+-- BASE DATA
+INSERT INTO languages (code, name) VALUES
+('en', 'English'),
+('fr', 'French'),
+('ru', 'Russian'),
+('ja', 'Japanese'),
+('es', 'Spanish'),
+('it', 'Italian')
+ON CONFLICT (code) DO NOTHING;
+
+-- SAMPLE ENTITY TYPES
 INSERT INTO entities_types (name) VALUES 
-  ('book');
+  ('book'),
+  ('play')
+ON CONFLICT (name) DO NOTHING;
 
-INSERT INTO entities (title, entities_type_id) VALUES 
-('Julius Caesar', 1),    -- Julius Caesar (Play)
-('The Hunchback of Notre-Dame', 1);  -- Hunchback of Notre-Dame (Book)
+-- SAMPLE TAGS
+ INSERT INTO tags (name) VALUES
+('detective'),
+('noir'),
+('USA'),
+('Philip Marlowe'),
+('urban decay'),
+('homage'),
+('Japan'),
+('Kogoro Akechi'),
+('psychological'),
+('mystery'),
+('horror'),
+('criminal mastermind'),
+('poetry'),
+('gothic'),
+('Dupin'),
+('France'),
+('amateur detective'),
+('unreliable narrator'),
+('metafiction'),
+('labyrinth'),
+('architecture'),
+('madness'),
+('philosophy'),
+('short stories'),
+('Argentina'),
+('dreamlike'),
+('space'),
+('intimacy'),
+('mindscape'),
+('isolation'),
+('fantasy'),
+('library'),
+('scholarly'),
+('historical'),
+('Tragedy'),
+('Shakespeare'),
+('Julius Caesar'),
+('Brutus')
+ON CONFLICT (name) DO NOTHING;
 
-INSERT INTO book_details (entities_id, author, language, publication_date) VALUES
-((SELECT id FROM entities WHERE title = 'Julius Caesar'), 'William Shakespeare', 'English', '1599-01-01'),    -- Julius Caesar (Play)
-((SELECT id FROM entities WHERE title = 'The Hunchback of Notre-Dame'), 'Victor Hugo', 'French', '1831-01-01');  -- Hunchback of Notre-Dame (Book)
+
+-- SAMPLE ENTITIES
+INSERT INTO entities (title, entities_type_id, creation_date, original_language_id)
+SELECT
+  'Julius Caesar',
+  (SELECT id FROM entities_types WHERE name='book' LIMIT 1),
+  NULL,
+  (SELECT id FROM languages WHERE code='en' LIMIT 1)
+WHERE NOT EXISTS (
+  SELECT 1 FROM entities WHERE title='Julius Caesar'
+);
+
+
+INSERT INTO entities (title, entities_type_id, creation_date, original_language_id)
+SELECT
+  'The Hunchback of Notre-Dame',
+  (SELECT id FROM entities_types WHERE name='book' LIMIT 1),
+  NULL,
+  (SELECT id FROM languages WHERE code='fr' LIMIT 1)
+WHERE NOT EXISTS (
+  SELECT 1 FROM entities WHERE title='The Hunchback of Notre-Dame'
+);
+
+
+INSERT INTO entities (title, entities_type_id, creation_date, original_language_id)
+SELECT
+  'The Big Sleep',
+  (SELECT id FROM entities_types WHERE name='book' LIMIT 1),
+  '1939-01-01',
+  (SELECT id FROM languages WHERE code='en' LIMIT 1)
+WHERE NOT EXISTS (
+  SELECT 1 FROM entities WHERE title='The Big Sleep'
+);
+
+
+-- SAMPLE BOOK DETAILS
+INSERT INTO book_details (entities_id, author, publication_date, language_id)
+SELECT
+  e.id,
+  'William Shakespeare',
+  '1599-01-01',
+  (SELECT id FROM languages WHERE code='en' LIMIT 1)
+FROM entities e
+WHERE e.title='Julius Caesar'
+AND NOT EXISTS (
+  SELECT 1 FROM book_details bd WHERE bd.entities_id = e.id
+);
+
+
+INSERT INTO book_details (entities_id, author, publication_date, language_id)
+SELECT
+  e.id,
+  'Victor Hugo',
+  '1831-01-01',
+  (SELECT id FROM languages WHERE code='fr' LIMIT 1)
+FROM entities e
+WHERE e.title='The Hunchback of Notre-Dame'
+AND NOT EXISTS (
+  SELECT 1 FROM book_details bd WHERE bd.entities_id = e.id
+);
+
+
+INSERT INTO book_details (entities_id, author, language_id)
+SELECT
+  e.id,
+  'Raymond Chandler',
+  (SELECT id FROM languages WHERE code='en' LIMIT 1)
+FROM entities e
+WHERE e.title='The Big Sleep'
+AND NOT EXISTS (
+  SELECT 1 FROM book_details bd WHERE bd.entities_id = e.id
+);
+
+
+-- SAMPLE ENTITY-TAG RELATIONSHIPS
+INSERT INTO entities_tags (entities_id, tag_id)
+SELECT
+  e.id,
+  t.id
+FROM entities e
+JOIN tags t ON t.name IN ('detective','noir','USA','Philip Marlowe','urban decay')
+WHERE e.title='The Big Sleep'
+ON CONFLICT DO NOTHING;
+
+
+       
