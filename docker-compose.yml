@@ -9,6 +9,8 @@ services:
       - ./frontend:/app
     depends_on:
       - backend
+    networks:
+      - homelib
 
   backend:
     container_name: homelib_back
@@ -24,10 +26,13 @@ services:
       - DB_NAME=${DB_NAME}
     depends_on:
       - postgres
+    networks:
+      - homelib
 
   postgres:
     container_name: homelib_pg
     image: postgres:18
+    restart: always
     environment:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
@@ -37,6 +42,10 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql
       - ./database:/docker-entrypoint-initdb.d
+    networks:
+      - homelib
 
 volumes:
   postgres_data:
+networks:
+  homelib:
