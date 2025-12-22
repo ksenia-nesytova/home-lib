@@ -5,11 +5,10 @@ import { Language } from './language.entity';
 @Entity('entities')
 export class HLEntity {
     @PrimaryGeneratedColumn('uuid')
-    id: string
+    id: number
 
     @Column()
     title: string
-
 
     @ManyToOne(() => EntityType, (entityType) => entityType.entities)
     @JoinColumn({ name: 'entities_type_id' })
