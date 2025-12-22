@@ -47,6 +47,9 @@ CREATE TABLE IF NOT EXISTS entities (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (entities_type_id) REFERENCES entities_types(id),
+  FOREIGN KEY (original_language_id) REFERENCES languages(id),
+  FOREIGN KEY (translation_language_id) REFERENCES languages(id)
+);
 
 
 CREATE TABLE IF NOT EXISTS entities_tags (
