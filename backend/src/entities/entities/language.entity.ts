@@ -1,10 +1,11 @@
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { HLEntity } from './hl-entity.entity';
+import { BookDetails } from './book-details.entity';
 
 @Entity('languages')
 export class Language {
     @PrimaryGeneratedColumn()
-    id: number;
+    id: string;
 
     @Column({ unique: true })
     code: string;
@@ -12,9 +13,9 @@ export class Language {
     @Column()
     name: string;
 
-    @OneToMany(() => HLEntity, (entity) => entity.originalLanguage)
+    @OneToMany(() => BookDetails, (entity) => entity.originalLanguage)
     originalEntities: HLEntity[];
 
-    @OneToMany(() => HLEntity, (entity) => entity.translationLanguage)
+    @OneToMany(() => BookDetails, (entity) => entity.translationLanguage)
     translatedEntities: HLEntity[];
 }

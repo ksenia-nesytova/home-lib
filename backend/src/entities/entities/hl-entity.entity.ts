@@ -1,27 +1,37 @@
-import { Column, JoinColumn, ManyToOne, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, JoinColumn, ManyToOne, Entity, PrimaryGeneratedColumn, OneToOne, } from 'typeorm';
 import { EntityType } from './entity-type.entity';
-import { Language } from './language.entity';
+import { BookDetails } from './book-details.entity';
 
 @Entity('entities')
 export class HLEntity {
     @PrimaryGeneratedColumn('uuid')
-    id: number
+    id: string
 
     @Column()
-    title: string
+    title: string;
 
     @ManyToOne(() => EntityType, (entityType) => entityType.entities)
     @JoinColumn({ name: 'entities_type_id' })
-    entityType: EntityType
+    entityType: EntityType;
 
     @Column({ name: 'creation_date', type: 'date', nullable: true })
-    creationDate: string | null
+    creationDate: string | null;
 
-    @ManyToOne(() => Language, (language) => language.originalEntities, { nullable: true })
-    @JoinColumn({ name: 'original_language_id' })
-    originalLanguage: Language | null
+    @Column({ name: 'description', type: 'text', nullable: true })
+    description: string | null;
 
-    @ManyToOne(() => Language, (language) => language.translatedEntities, { nullable: true })
-    @JoinColumn({ name: 'translation_language_id' })
-    translationLanguage: Language | null
+    @Column({ name: 'notes', type: 'text', nullable: true })
+    notes: string | null;
+
+    @Column({ name: 'rating', type: 'int', nullable: true })
+    rating: number | null;
+
+    @Column({ name: 'created_at', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+    createdAt: Date;
+
+    @Column({ name: 'updated_at', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
+    updatedAt: Date;
+
+    @OneToOne(() => BookDetails, (details) => details.entity)
+    bookDetails?: BookDetails;
 }

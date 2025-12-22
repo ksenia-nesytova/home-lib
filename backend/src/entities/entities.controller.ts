@@ -5,7 +5,7 @@ import { UpdateEntityDto } from './dto/update-entity.dto';
 
 @Controller('entities')
 export class EntitiesController {
-  constructor(private readonly entitiesService: EntitiesService) {}
+  constructor(private readonly entitiesService: EntitiesService) { }
 
   @Post()
   create(@Body() createEntityDto: CreateEntityDto) {

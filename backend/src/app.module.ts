@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { HLEntity } from './entities/entities/hl-entity.entity';
 import { EntityType } from './entities/entities/entity-type.entity';
 import { Language } from './entities/entities/language.entity';
+import { BookDetails } from './entities/entities/book-details.entity';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { Language } from './entities/entities/language.entity';
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [HLEntity, EntityType, Language],
+      entities: [HLEntity, EntityType, Language, BookDetails],
     }),
     EntitiesModule,
   ],
