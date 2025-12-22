@@ -1,90 +1,93 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+-- LANGUAGES
 CREATE TABLE IF NOT EXISTS languages (
-  id SERIAL PRIMARY KEY,
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   code VARCHAR(10) NOT NULL UNIQUE,    -- e.g., 'en', 'fr', 'es'
   name VARCHAR(100) NOT NULL           -- e.g., 'English', 'French', 'Spanish'
 );
 
 -- TAG CATEGORIES
 CREATE TABLE IF NOT EXISTS categories (
-  id SERIAL PRIMARY KEY,
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   name VARCHAR(255) NOT NULL UNIQUE,
   description TEXT
 );
 
 
 CREATE TABLE IF NOT EXISTS tags (
-  id SERIAL PRIMARY KEY,
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   name VARCHAR(255) NOT NULL UNIQUE,
-  parent_id INT,
-  category_id INT,
+  parent_id UUID,
+  category_id UUID,
   description TEXT, 
   CONSTRAINT fk_parent FOREIGN KEY (parent_id) REFERENCES tags(id) ON DELETE SET NULL,
   FOREIGN KEY (category_id) REFERENCES categories(id)
 );
 
 CREATE TABLE IF NOT EXISTS tag_structure (
-  child_tag_id INT REFERENCES tags(id) ON DELETE CASCADE,    -- Child tag (e.g., Paris, Eiffel Tower)
-  parent_tag_id INT REFERENCES tags(id) ON DELETE CASCADE,   -- Parent tag (e.g., France, Cities)
+  child_tag_id UUID REFERENCES tags(id) ON DELETE CASCADE,    -- Child tag (e.g., Paris, Eiffel Tower)
+  parent_tag_id UUID REFERENCES tags(id) ON DELETE CASCADE,   -- Parent tag (e.g., France, Cities)
   PRIMARY KEY (child_tag_id, parent_tag_id)                   -- Composite key
-);
-
-CREATE TABLE IF NOT EXISTS entities_tags (
-  entities_id INT REFERENCES entities(id),
-  tag_id INT REFERENCES tags(id),
-  PRIMARY KEY (entities_id, tag_id)
 );
 
 -- MEDIA TYPES (book, play, etc.)
 CREATE TABLE IF NOT EXISTS entities_types (
-  id SERIAL PRIMARY KEY,
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   name VARCHAR(50) NOT NULL UNIQUE
   );
 
-
 CREATE TABLE IF NOT EXISTS entities (
-  id SERIAL PRIMARY KEY,
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   title VARCHAR(255) NOT NULL,
-  entities_type_id INT NOT NULL,
+  entities_type_id UUID NOT NULL,
   creation_date DATE,
-  original_language_id INT,
+  original_language_id UUID,
+  translation_language_id UUID,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (entities_type_id) REFERENCES entities_types(id),
-  FOREIGN KEY (original_language_id) REFERENCES languages(id) 
+
+
+CREATE TABLE IF NOT EXISTS entities_tags (
+  entities_id UUID REFERENCES entities(id),
+  tag_id UUID REFERENCES tags(id),
+  PRIMARY KEY (entities_id, tag_id)
 );
+
 
 -- COVER IMAGES (optional)
 CREATE TABLE IF NOT EXISTS covers (
-  id SERIAL PRIMARY KEY,
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   path VARCHAR(500) NOT NULL UNIQUE
 );
 
 -- LOCATIONS (shelf N1, L3, etc.)
 CREATE TABLE IF NOT EXISTS locations (
-  id SERIAL PRIMARY KEY,
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   name VARCHAR(100) NOT NULL UNIQUE
 );
 
 -- RATINGS
 CREATE TABLE IF NOT EXISTS ratings (
-  id SERIAL PRIMARY KEY,
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   value INT CHECK (value BETWEEN 1 AND 5)
 );
 
 -- NOTES (each entity can have a personal note)
 CREATE TABLE IF NOT EXISTS notes (
-  id SERIAL PRIMARY KEY,
-  entities_id INT NOT NULL REFERENCES entities(id) ON DELETE CASCADE,
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  entities_id UUID NOT NULL REFERENCES entities(id) ON DELETE CASCADE,
   content TEXT
 );
 
 CREATE TABLE IF NOT EXISTS book_details (
-  entities_id INT PRIMARY KEY,
+  entities_id UUID PRIMARY KEY,
   author VARCHAR(255),
   publisher VARCHAR(255),
   publication_date DATE,
   edition VARCHAR(255),
-  language_id INT REFERENCES languages(id),
+  language_id UUID REFERENCES languages(id),
   FOREIGN KEY (entities_id) REFERENCES entities(id)
 );
 
