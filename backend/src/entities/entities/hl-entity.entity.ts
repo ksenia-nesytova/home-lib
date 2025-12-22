@@ -18,9 +18,9 @@ export class HLEntity {
     @Column({ name: 'creation_date', type: 'date', nullable: true })
     creationDate: string | null
 
-    @ManyToOne(() => Language, (language) => language.originalEntities)
+    @ManyToOne(() => Language, (language) => language.originalEntities, { nullable: true })
     @JoinColumn({ name: 'original_language_id' })
-    originalLanguage: Language
+    originalLanguage: Language | null
 
     @ManyToOne(() => Language, (language) => language.translatedEntities, { nullable: true })
     @JoinColumn({ name: 'translation_language_id' })
