@@ -1,6 +1,7 @@
 import { Column, JoinColumn, ManyToOne, Entity, PrimaryGeneratedColumn, OneToOne, } from 'typeorm';
 import { EntityType } from './entity-type.entity';
 import { BookDetails } from './book-details.entity';
+import { Min, Max } from 'class-validator';
 
 @Entity('entities')
 export class HLEntity {
@@ -24,6 +25,8 @@ export class HLEntity {
     notes: string | null;
 
     @Column({ name: 'rating', type: 'int', nullable: true })
+    @Min(1)
+    @Max(5)
     rating: number | null;
 
     @Column({ name: 'created_at', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
