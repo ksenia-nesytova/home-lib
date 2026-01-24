@@ -6,11 +6,11 @@ import { HLEntity } from './entities/hl-entity.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class EntitiesService {
+export class MediaEntitiesService {
 
   constructor(
     @InjectRepository(HLEntity)
-    private readonly entityRepository: Repository<HLEntity>,
+    private readonly mediaEntityRepository: Repository<HLEntity>,
   ) { }
 
   create(createEntityDto: CreateEntityDto) {
@@ -18,7 +18,7 @@ export class EntitiesService {
   }
 
   findAll() {
-    return this.entityRepository.find();
+    return this.mediaEntityRepository.find();
   }
 
   findOne(id: number) {

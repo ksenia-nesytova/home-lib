@@ -1,9 +1,9 @@
 import { Column, JoinColumn, ManyToOne, Entity, PrimaryGeneratedColumn, OneToOne, } from 'typeorm';
-import { EntityType } from './entity-type.entity';
+import { MediaType } from './media-type.entity';
 import { BookDetails } from './book-details.entity';
 import { Min, Max } from 'class-validator';
 
-@Entity('entities')
+@Entity('media_entities')
 export class HLEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string
@@ -11,9 +11,12 @@ export class HLEntity {
     @Column()
     title: string;
 
-    @ManyToOne(() => EntityType, (entityType) => entityType.entities)
-    @JoinColumn({ name: 'entities_type_id' })
-    entityType: EntityType;
+    @Column()
+    author: string;
+
+    @ManyToOne(() => MediaType, (mediaType) => mediaType.media_entities)
+    @JoinColumn({ name: 'media_type_id' })
+    mediaType: MediaType;
 
     @Column({ name: 'creation_date', type: 'date', nullable: true })
     creationDate: string | null;
@@ -24,17 +27,9 @@ export class HLEntity {
     @Column({ name: 'notes', type: 'text', nullable: true })
     notes: string | null;
 
-    @Column({ name: 'rating', type: 'int', nullable: true })
-    @Min(1)
-    @Max(5)
-    rating: number | null;
-
     @Column({ name: 'created_at', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     createdAt: Date;
 
     @Column({ name: 'updated_at', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
     updatedAt: Date;
-
-    @OneToOne(() => BookDetails, (details) => details.entity)
-    bookDetails?: BookDetails;
 }
