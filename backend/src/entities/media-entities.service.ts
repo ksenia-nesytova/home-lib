@@ -2,15 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { CreateEntityDto } from './dto/create-entity.dto';
 import { UpdateEntityDto } from './dto/update-entity.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { HLEntity } from './entities/hl-entity.entity';
+import { MediaEntity } from './entities/media-entity.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class MediaEntitiesService {
 
   constructor(
-    @InjectRepository(HLEntity)
-    private readonly mediaEntityRepository: Repository<HLEntity>,
+    @InjectRepository(MediaEntity)
+    private readonly mediaEntityRepository: Repository<MediaEntity>,
   ) { }
 
   create(createEntityDto: CreateEntityDto) {

@@ -4,7 +4,7 @@ import { BookDetails } from './book-details.entity';
 import { Min, Max } from 'class-validator';
 
 @Entity('media_entities')
-export class HLEntity {
+export class MediaEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string
 

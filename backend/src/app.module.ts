@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MediaEntitiesModule } from './entities/media-entities.module';
 import { ConfigModule } from '@nestjs/config';
-import { HLEntity } from './entities/entities/hl-entity.entity';
+import { MediaEntity } from './entities/entities/media-entity.entity';
 import { MediaType } from './entities/entities/media-type.entity';
 import { Language } from './entities/entities/language.entity';
 import { BookDetails } from './entities/entities/book-details.entity';
@@ -21,7 +21,8 @@ import { BookDetails } from './entities/entities/book-details.entity';
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [HLEntity, MediaType, Language, BookDetails],
+      entities: [MediaEntity, MediaType, Language, BookDetails],
+      logging: true,
     }),
     MediaEntitiesModule,
   ],

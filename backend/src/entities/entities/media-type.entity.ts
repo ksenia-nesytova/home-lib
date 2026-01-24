@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { HLEntity } from './hl-entity.entity';
+import { MediaEntity } from './media-entity.entity';
 
 @Entity('media_types')
 export class MediaType {
@@ -9,6 +9,6 @@ export class MediaType {
     @Column({ unique: true })
     name: string;
 
-    @OneToMany(() => HLEntity, (entity) => entity.mediaType)
-    media_entities: HLEntity[];
+    @OneToMany(() => MediaEntity, (entity) => entity.mediaType)
+    media_entities: MediaEntity[];
 }
