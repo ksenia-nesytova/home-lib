@@ -7,58 +7,6 @@ CREATE TABLE IF NOT EXISTS languages (
   name VARCHAR(100) NOT NULL           -- e.g., 'English', 'French', 'Spanish'
 );
 
--- TAG CATEGORIES
-CREATE TABLE IF NOT EXISTS categories (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  name VARCHAR(255) NOT NULL UNIQUE,
-  description TEXT
-);
-
-
-CREATE TABLE IF NOT EXISTS tags (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  name VARCHAR(255) NOT NULL UNIQUE,
-  parent_id UUID,
-  category_id UUID,
-  description TEXT, 
-  CONSTRAINT fk_parent FOREIGN KEY (parent_id) REFERENCES tags(id) ON DELETE SET NULL,
-  FOREIGN KEY (category_id) REFERENCES categories(id)
-);
-
-CREATE TABLE IF NOT EXISTS tag_structure (
-  child_tag_id UUID REFERENCES tags(id) ON DELETE CASCADE,    -- Child tag (e.g., Paris, Eiffel Tower)
-  parent_tag_id UUID REFERENCES tags(id) ON DELETE CASCADE,   -- Parent tag (e.g., France, Cities)
-  PRIMARY KEY (child_tag_id, parent_tag_id)                   -- Composite key
-);
-
--- MEDIA TYPES (book, play, etc.)
-CREATE TABLE IF NOT EXISTS entities_types (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  name VARCHAR(50) NOT NULL UNIQUE
-  );
-
-CREATE TABLE IF NOT EXISTS entities (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  title VARCHAR(255) NOT NULL,
-  entities_type_id UUID NOT NULL,
-  creation_date DATE,
-  original_language_id UUID,
-  translation_language_id UUID,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (entities_type_id) REFERENCES entities_types(id),
-  FOREIGN KEY (original_language_id) REFERENCES languages(id),
-  FOREIGN KEY (translation_language_id) REFERENCES languages(id)
-);
-
-
-CREATE TABLE IF NOT EXISTS entities_tags (
-  entities_id UUID REFERENCES entities(id),
-  tag_id UUID REFERENCES tags(id),
-  PRIMARY KEY (entities_id, tag_id)
-);
-
-
 -- COVER IMAGES (optional)
 CREATE TABLE IF NOT EXISTS covers (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -71,33 +19,79 @@ CREATE TABLE IF NOT EXISTS locations (
   name VARCHAR(100) NOT NULL UNIQUE
 );
 
--- RATINGS
-CREATE TABLE IF NOT EXISTS ratings (
+-- MEDIA TYPES (book, video_game, etc.)
+CREATE TABLE IF NOT EXISTS media_types (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  value INT CHECK (value BETWEEN 1 AND 5)
+  name VARCHAR(50) NOT NULL UNIQUE
+  );
+
+-- TAG CATEGORIES
+CREATE TABLE IF NOT EXISTS categories (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  name VARCHAR(255) NOT NULL UNIQUE,
+  description TEXT
 );
 
--- NOTES (each entity can have a personal note)
-CREATE TABLE IF NOT EXISTS notes (
+-- TAGS
+CREATE TABLE IF NOT EXISTS tags (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  entities_id UUID NOT NULL REFERENCES entities(id) ON DELETE CASCADE,
-  content TEXT
+  name VARCHAR(255) NOT NULL UNIQUE,
+  category_id UUID,
+  description TEXT, 
+  FOREIGN KEY (category_id) REFERENCES categories(id)
+);
+
+-- TAG HIERARCHY
+CREATE TABLE IF NOT EXISTS tag_structure (
+  child_tag_id UUID REFERENCES tags(id) ON DELETE CASCADE,    -- Child tag (e.g., Paris, Eiffel Tower)
+  parent_tag_id UUID REFERENCES tags(id) ON DELETE CASCADE,   -- Parent tag (e.g., France, Cities)
+  PRIMARY KEY (child_tag_id, parent_tag_id)                   -- Composite key
+);
+
+-- ENTITIES (abstract, agnotsitc)
+CREATE TABLE IF NOT EXISTS media_entities (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  title VARCHAR(255) NOT NULL,
+  author VARCHAR(255), -- main author/creator(Victor Hugo, Electronic Arts, Creedence Clearwater Revival, etc.)
+  media_type_id UUID REFERENCES media_types(id) ON DELETE SET NULL,
+  language_id UUID REFERENCES languages(id) ON DELETE SET NULL, -- language of this entity (original language) 
+  description TEXT,
+  notes TEXT,
+  creation_date DATE, --when the work was created/published
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- INSTANCE OF AN ENTITY (i.e. copy of a book in a specific language)
+CREATE TABLE IF NOT EXISTS media_instances (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  media_entity_id UUID NOT NULL REFERENCES media_entities(id) ON DELETE CASCADE,
+  format TEXT, -- physical, ebook, vinyl, etc. CRETAE TABLE FOR FORMATS LATER?
+  acquisition_date DATE,
+  notes TEXT,
+  location_id UUID REFERENCES locations(id),
+  cover_id UUID REFERENCES covers(id)
 );
 
 CREATE TABLE IF NOT EXISTS book_details (
-  entities_id UUID PRIMARY KEY,
+  media_entity_id UUID PRIMARY KEY REFERENCES media_entities(id) ON DELETE CASCADE,
   author VARCHAR(255),
-  publisher VARCHAR(255),
-  publication_date DATE,
-  edition VARCHAR(255),
-  language_id UUID REFERENCES languages(id),
-  FOREIGN KEY (entities_id) REFERENCES entities(id)
+  translation_language_id UUID REFERENCES languages(id)
 );
 
+
+CREATE TABLE IF NOT EXISTS media_entities_tags (
+  media_entity_id UUID REFERENCES media_entities(id) ON DELETE CASCADE,
+  tag_id UUID REFERENCES tags(id),
+  PRIMARY KEY (media_entity_id, tag_id)
+);
+
+
 -- Indexes for better performance
-CREATE INDEX IF NOT EXISTS idx_entities_title ON entities(title);
+CREATE INDEX IF NOT EXISTS idx_entities_title ON media_entities(title);
 CREATE INDEX IF NOT EXISTS idx_tags_name ON tags(name);
-CREATE INDEX IF NOT EXISTS idx_entities_tags ON entities_tags(entities_id, tag_id);
+CREATE INDEX IF NOT EXISTS idx_entities_tags ON media_entities_tags(media_entity_id, tag_id);
+
 
 
 -- BASE DATA
@@ -111,9 +105,11 @@ INSERT INTO languages (code, name) VALUES
 ON CONFLICT (code) DO NOTHING;
 
 -- SAMPLE ENTITY TYPES
-INSERT INTO entities_types (name) VALUES 
+INSERT INTO media_types (name) VALUES 
   ('book'),
-  ('play')
+  ('video_game'),
+  ('movie'),
+  ('music')
 ON CONFLICT (name) DO NOTHING;
 
 -- SAMPLE TAGS
@@ -160,84 +156,79 @@ ON CONFLICT (name) DO NOTHING;
 
 
 -- SAMPLE ENTITIES
-INSERT INTO entities (title, entities_type_id, creation_date, original_language_id)
+INSERT INTO media_entities (title, author, media_type_id, creation_date, language_id)
 SELECT
   'Julius Caesar',
-  (SELECT id FROM entities_types WHERE name='book' LIMIT 1),
+  'William Shakespeare',
+  (SELECT id FROM media_types WHERE name='book' LIMIT 1),
   NULL,
   (SELECT id FROM languages WHERE code='en' LIMIT 1)
 WHERE NOT EXISTS (
-  SELECT 1 FROM entities WHERE title='Julius Caesar'
+  SELECT 1 FROM media_entities WHERE title='Julius Caesar'
 );
 
 
-INSERT INTO entities (title, entities_type_id, creation_date, original_language_id)
+INSERT INTO media_entities (title,author,media_type_id, creation_date, language_id)
 SELECT
   'The Hunchback of Notre-Dame',
-  (SELECT id FROM entities_types WHERE name='book' LIMIT 1),
+  'Victor Hugo',
+  (SELECT id FROM media_types WHERE name='book' LIMIT 1),
   NULL,
   (SELECT id FROM languages WHERE code='fr' LIMIT 1)
 WHERE NOT EXISTS (
-  SELECT 1 FROM entities WHERE title='The Hunchback of Notre-Dame'
+  SELECT 1 FROM media_entities WHERE title='The Hunchback of Notre-Dame'
 );
 
 
-INSERT INTO entities (title, entities_type_id, creation_date, original_language_id)
+INSERT INTO media_entities (title, author, media_type_id, creation_date, language_id)
 SELECT
   'The Big Sleep',
-  (SELECT id FROM entities_types WHERE name='book' LIMIT 1),
+  'Raymond Chandler',
+  (SELECT id FROM media_types WHERE name='book' LIMIT 1),
   '1939-01-01',
   (SELECT id FROM languages WHERE code='en' LIMIT 1)
 WHERE NOT EXISTS (
-  SELECT 1 FROM entities WHERE title='The Big Sleep'
+  SELECT 1 FROM media_entities WHERE title='The Big Sleep'
 );
 
 
 -- SAMPLE BOOK DETAILS
-INSERT INTO book_details (entities_id, author, publication_date, language_id)
+INSERT INTO book_details (media_entity_id, translation_language_id)
 SELECT
   e.id,
-  'William Shakespeare',
-  '1599-01-01',
   (SELECT id FROM languages WHERE code='en' LIMIT 1)
-FROM entities e
+FROM media_entities e
 WHERE e.title='Julius Caesar'
 AND NOT EXISTS (
-  SELECT 1 FROM book_details bd WHERE bd.entities_id = e.id
+  SELECT 1 FROM book_details bd WHERE bd.media_entity_id = e.id
 );
 
-
-INSERT INTO book_details (entities_id, author, publication_date, language_id)
+INSERT INTO book_details (media_entity_id,translation_language_id)
 SELECT
   e.id,
-  'Victor Hugo',
-  '1831-01-01',
   (SELECT id FROM languages WHERE code='fr' LIMIT 1)
-FROM entities e
+FROM media_entities e
 WHERE e.title='The Hunchback of Notre-Dame'
 AND NOT EXISTS (
-  SELECT 1 FROM book_details bd WHERE bd.entities_id = e.id
+  SELECT 1 FROM book_details bd WHERE bd.media_entity_id = e.id
 );
 
-
-INSERT INTO book_details (entities_id, author, language_id)
+INSERT INTO book_details (media_entity_id, translation_language_id)
 SELECT
   e.id,
-  'Raymond Chandler',
   (SELECT id FROM languages WHERE code='en' LIMIT 1)
-FROM entities e
+FROM media_entities e
 WHERE e.title='The Big Sleep'
 AND NOT EXISTS (
-  SELECT 1 FROM book_details bd WHERE bd.entities_id = e.id
+  SELECT 1 FROM book_details bd WHERE bd.media_entity_id = e.id
 );
 
-
 -- SAMPLE ENTITY-TAG RELATIONSHIPS
-INSERT INTO entities_tags (entities_id, tag_id)
+INSERT INTO media_entities_tags (media_entity_id, tag_id)
 SELECT
   e.id,
   t.id
-FROM entities e
+FROM media_entities e
 JOIN tags t ON t.name IN ('detective','noir','USA','Philip Marlowe','urban decay')
 WHERE e.title='The Big Sleep'
 ON CONFLICT DO NOTHING;
