@@ -5,13 +5,13 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class EntityService {
+export class MediaEntityService {
 
   constructor() { }
 
   private http = inject(HttpClient);
 
-  private readonly API_URL = 'http://localhost:3000/api/entities';
+  private readonly API_URL = 'http://localhost:3000/api/media_entities';
 
   getEntity(id: number): Observable<any> {
     return this.http.get<any>(`${this.API_URL}/${id}`);
