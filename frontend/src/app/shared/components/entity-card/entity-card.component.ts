@@ -1,4 +1,11 @@
-import { Component, effect, input, InputSignal, signal, WritableSignal } from '@angular/core';
+import {
+  Component,
+  effect,
+  input,
+  InputSignal,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { EditableFieldComponent } from '@app/shared/components/editable-field/editable-field.component';
 import { Card } from '@app/shared/models/Card';
 import { MediaType } from '@app/shared/enums/media-type';
@@ -7,7 +14,7 @@ import { EditableSelectComponent } from '@app/shared/components/editable-select/
 import { StarRatingComponent } from '@app/shared/components/star-rating/star-rating.component';
 import { TagListComponent } from '@app/shared/components/tag-list/tag-list.component';
 import { DatePipe } from '@angular/common';
-import { UploaderComponent } from "@app/shared/components/uploader/uploader.component";
+import { UploaderComponent } from '@app/shared/components/uploader/uploader.component';
 
 const DEFAULT_IMAGE = 'assets/USS_Enterprise.png';
 
@@ -20,30 +27,27 @@ const DEFAULT_IMAGE = 'assets/USS_Enterprise.png';
     StarRatingComponent,
     TagListComponent,
     DatePipe,
-    UploaderComponent
+    UploaderComponent,
   ],
   templateUrl: './entity-card.component.html',
-  styleUrl: './entity-card.component.scss'
+  styleUrl: './entity-card.component.scss',
 })
 export class EntityCardComponent {
   protected readonly MEDIA_OPTIONS = Object.values(MediaType);
 
   public isEditable: InputSignal<boolean> = input(true);
-  public card: InputSignal<Card | null> = input<Card | null>(null);
-  protected currentCard: WritableSignal<Card> = signal({
-    id: '',
-    title: 'Untitled',
-    mediaType: MediaType.BOOK,
-    tags: []
-  });
+
+  public card = input.required<Card>();
+  readonly currentCard = signal<Partial<Card> | null>(null);
 
   protected coverImage: WritableSignal<string> = signal(DEFAULT_IMAGE);
 
   constructor() {
     effect(() => {
-      if (this.card() && !this.currentCard().id) {
-        this.currentCard.set(this.card()!);
-        this.coverImage.set(this.currentCard().coverImage || DEFAULT_IMAGE);
+      this.currentCard.set(this.card());
+
+      if (this.currentCard()) {
+        this.coverImage.set(this.currentCard()?.coverImage || DEFAULT_IMAGE);
       }
     });
   }
@@ -52,8 +56,10 @@ export class EntityCardComponent {
     this.coverImage.set(this.getCoverImage());
   }
 
-
-  protected updateField(fieldName: string, newValue: string | number | string[]): void {
+  protected updateField(
+    fieldName: string,
+    newValue: string | number | string[],
+  ): void {
     this.currentCard.set({ ...this.currentCard(), [fieldName]: newValue });
 
     // Optionally: Save immediately to backend
@@ -63,21 +69,24 @@ export class EntityCardComponent {
   protected onMediaTypeChange(mediaType: string | null) {
     this.currentCard.set({
       ...this.currentCard(),
-      mediaType: mediaType as MediaType
+      mediaType: mediaType as MediaType,
     });
   }
 
   protected getCoverImage(): string {
-    return this.currentCard().coverImage || DEFAULT_IMAGE;
+    return this.currentCard()?.coverImage || DEFAULT_IMAGE;
   }
 
   protected onImageUpdated(newImage: string) {
     const updatedCard = { ...this.currentCard(), coverImage: newImage };
     this.currentCard.set(updatedCard);
-    this.coverImage.set(newImage);
     // ADD: save logic
     //TEMP
-    this.currentCard().coverImage = newImage;
+    this.currentCard.set({
+      ...this.currentCard(),
+      coverImage: newImage,
+    });
+    this.coverImage.set(newImage);
   }
 
   protected onImageError(): void {
