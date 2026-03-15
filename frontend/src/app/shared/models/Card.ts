@@ -1,20 +1,20 @@
 import { MediaType } from '../enums/media-type';
 
 export interface Card {
-    id: string;
-    coverImage?: string;
-    title: string;
-    author?: string;
-    mediaType: MediaType;
-    creationDate?: string; // or Date
-    language?: string;
-    originalLanguage?: string;
-    tags: string[];
-    description?: string;
-    notes?: string;
-    location?: string;
-    rating?: number; // Number
-    dateAdded?: Date; // Date
-    isPhysicalCopy?: boolean;
-    downloadUrl?: string;
+  id: string;
+  coverImage: string | null;
+  title: string;
+  author: string | null;
+  mediaType: MediaType;
+  creationDate: string; // or Date
+  language: string | null;
+  originalLanguage: string | null;
+  tags: string[] | null;
+  description?: string;
+  notes: string | null;
+  location: string | null;
+  rating: number | null; // Number
+  dateAdded: Date; // Date
+  isPhysicalCopy: boolean;
+  downloadUrl?: string | null; //??
 }
