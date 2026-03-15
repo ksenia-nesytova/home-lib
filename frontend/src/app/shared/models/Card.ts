@@ -1,4 +1,5 @@
 import { MediaType } from '../enums/media-type';
+import { Relationship } from './Relationship';
 
 export interface Card {
   id: string;
@@ -17,4 +18,5 @@ export interface Card {
   dateAdded: Date; // Date
   isPhysicalCopy: boolean;
   downloadUrl?: string | null; //??
+  relationships?: Relationship[];
 }
