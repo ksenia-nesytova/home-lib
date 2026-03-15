@@ -6,32 +6,29 @@ import { iconPaths } from '../assets/icons/icons';
 import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-root',
-  imports: [
-    RouterOutlet,
-    LayoutComponent
-  ],
+  imports: [RouterOutlet, LayoutComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'HomeLib';
+  protected readonly title = 'HomeLib';
 
   private iconRegistry = inject(MatIconRegistry);
   private sanitizer = inject(DomSanitizer);
-
 
   constructor() {
     this.registerSVGIcons();
   }
 
-
   registerSVGIcons(): void {
-    (Object.entries(iconPaths) as [string, string][]).forEach(([iconName, iconPath]) => {
-      const iconNameWithPrefix = `HL-${iconName}`;
-      this.iconRegistry.addSvgIcon(
-        iconNameWithPrefix,
-        this.sanitizer.bypassSecurityTrustResourceUrl(iconPath)
-      );
-    });
+    (Object.entries(iconPaths) as [string, string][]).forEach(
+      ([iconName, iconPath]) => {
+        const iconNameWithPrefix = `HL-${iconName}`;
+        this.iconRegistry.addSvgIcon(
+          iconNameWithPrefix,
+          this.sanitizer.bypassSecurityTrustResourceUrl(iconPath),
+        );
+      },
+    );
   }
 }
