@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { CardsWrapperComponent } from "@app/shared/components/cards-wrapper/cards-wrapper.component";
+import { CardsWrapperComponent } from '@app/shared/components/cards-wrapper/cards-wrapper.component';
 import { MediaType } from '@app/shared/enums/media-type';
 import { Card } from '@app/shared/models/Card';
 import { CardsFiltersComponent } from './cards-filters/cards-filters.component';
@@ -10,7 +10,7 @@ import { MediaEntityService } from '@app/core/services/media-entity.service';
   selector: 'app-cards-page',
   imports: [CardsWrapperComponent, CardsFiltersComponent],
   templateUrl: './cards-page.component.html',
-  styleUrl: './cards-page.component.scss'
+  styleUrl: './cards-page.component.scss',
 })
 export class CardsPageComponent implements OnInit {
   protected readonly MEDIA_TYPES = MediaType;

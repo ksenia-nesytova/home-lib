@@ -1,21 +1,28 @@
-import { Component, effect, ElementRef, HostListener, input, InputSignal, output, signal, WritableSignal } from '@angular/core';
+import {
+  Component,
+  effect,
+  ElementRef,
+  HostListener,
+  input,
+  InputSignal,
+  output,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-editable-select',
-  imports: [
-    FormsModule,
-    MatIconModule,
-  ],
+  imports: [FormsModule, MatIconModule],
   templateUrl: './editable-select.component.html',
-  styleUrl: './editable-select.component.scss'
+  styleUrl: './editable-select.component.scss',
 })
 export class EditableSelectComponent {
   public isEditable: InputSignal<boolean> = input(true);
   public isEditingView: InputSignal<boolean> = input(false);
 
-  public value: InputSignal<string | null> = input<string | null>('');
+  public value: InputSignal<string | null> = input<string | null>(null);
   public placeholder: InputSignal<string> = input('Click to edit');
   public options: InputSignal<string[]> = input<string[]>([]);
 
@@ -71,5 +78,4 @@ export class EditableSelectComponent {
       this.isEditing.set(false);
     }
   }
-
 }
