@@ -1,18 +1,22 @@
-import { Component, effect, input, InputSignal, output, signal, WritableSignal } from '@angular/core';
+import {
+  Component,
+  effect,
+  input,
+  InputSignal,
+  output,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-editable-field',
-  imports: [
-    FormsModule,
-    MatIconModule
-  ],
+  imports: [FormsModule, MatIconModule],
   templateUrl: './editable-field.component.html',
-  styleUrl: './editable-field.component.scss'
+  styleUrl: './editable-field.component.scss',
 })
 export class EditableFieldComponent {
-
   public isEditable: InputSignal<boolean> = input(true);
 
   public value: InputSignal<string> = input('');
@@ -21,10 +25,8 @@ export class EditableFieldComponent {
 
   public valueChange = output<string>();
 
-
   protected isEditing: WritableSignal<boolean> = signal(false);
   protected currentValue: WritableSignal<string> = signal('');
-
 
   constructor() {
     effect(() => {
@@ -33,7 +35,6 @@ export class EditableFieldComponent {
       }
     });
   }
-
 
   protected toggleEditMode(): void {
     if (this.isEditable()) {
@@ -53,4 +54,6 @@ export class EditableFieldComponent {
     this.isEditing.set(false);
     this.currentValue.set(this.value());
   }
+
+  // enter support maybe?
 }
