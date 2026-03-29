@@ -1,0 +1,5 @@
+@use "shared";
+
+.add-entity {
+  @include shared.modal();
+}

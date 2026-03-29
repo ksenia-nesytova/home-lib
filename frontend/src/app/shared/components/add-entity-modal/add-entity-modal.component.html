@@ -1,0 +1,31 @@
+<div class="add-entity">
+  <!-- replace with mat-icon -->
+  <button (click)="onClose()">x</button>
+  <h2>Add something new</h2>
+  <hr class="divider" />
+
+  @for (step of STEP_ORDER; track step) {
+    @if (step === currentStep()) {
+      <app-entity-section [title]="STEP_LABELS[step]">
+        @if (step === AddEntitySteps.CORE_INFO) {
+          <!-- <app-core-info-form /> -->
+        } @else if (step === AddEntitySteps.TAGS) {
+          <app-tag-selector
+            (tagsChange)="onTagChange($event)"
+            [selectedTags]="currentTags()"
+          />
+        } @else if (step === AddEntitySteps.NOTES) {
+          <app-editable-field [type]="'textarea'" />
+        } @else {
+          @for (rel of STEP_RELATIONSHIPS[step]; track rel) {
+            <app-relationship-question-card [type]="rel" />
+          }
+        }
+      </app-entity-section>
+    }
+  }
+  <div class="add-entity__actions">
+    <button (click)="prevStep()">Back</button>
+    <button (click)="nextStep()">Next</button>
+  </div>
+</div>
