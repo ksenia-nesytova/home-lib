@@ -1,6 +1,6 @@
 import { Component, computed, input, signal } from '@angular/core';
 import {
-  RelationshipQuestion,
+  RELATIONSHIP_CONFIG,
   RelationshipType,
 } from '../../enums/relationship-type';
 import { EditableFieldComponent } from '../editable-field/editable-field.component';
@@ -12,8 +12,8 @@ import { EditableFieldComponent } from '../editable-field/editable-field.compone
   styleUrl: './relationship-question-card.component.scss',
 })
 export class RelationshipQuestionCardComponent {
-  protected readonly type = input.required<RelationshipType>();
-  protected question = computed(() => RelationshipQuestion[this.type()]);
+  public readonly type = input.required<RelationshipType>();
+  protected question = computed(() => RELATIONSHIP_CONFIG[this.type()]);
 
   protected currentValue = signal('');
 

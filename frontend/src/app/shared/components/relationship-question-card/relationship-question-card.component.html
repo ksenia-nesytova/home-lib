@@ -1,14 +1,14 @@
 <div class="question-card">
-  <p>{{ question() }}</p>
+  <p>{{ question().question }}</p>
 
   <!-- add better placeholder / example value -->
   <app-editable-field
     [value]="currentValue()"
-    [placeholder]="question()"
+    [placeholder]="question().placeholder || 'Enter value...'"
     (valueChange)="currentValue.set($event)"
+    [isEditable]="true"
+    [isActive]="true"
   />
-
-  <!-- make Save into an icon -->
-  <button (click)="addRelationship()">Save</button>
-  <button (click)="skipQuestion()">Skip</button>
+  <!-- ✓ Answered
+(empty = ignored) -->
 </div>
