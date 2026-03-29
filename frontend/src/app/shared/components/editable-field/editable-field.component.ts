@@ -3,6 +3,7 @@ import {
   effect,
   input,
   InputSignal,
+  OnInit,
   output,
   signal,
   WritableSignal,
@@ -16,8 +17,9 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './editable-field.component.html',
   styleUrl: './editable-field.component.scss',
 })
-export class EditableFieldComponent {
+export class EditableFieldComponent implements OnInit {
   public isEditable: InputSignal<boolean> = input(true);
+  public isActive: InputSignal<boolean> = input(false);
 
   public value: InputSignal<string> = input('');
   public placeholder: InputSignal<string> = input('Click to edit');
@@ -34,6 +36,12 @@ export class EditableFieldComponent {
         this.currentValue.set(this.value());
       }
     });
+  }
+
+  ngOnInit() {
+    if (this.isActive()) {
+      this.isEditing.set(true);
+    }
   }
 
   protected toggleEditMode(): void {
