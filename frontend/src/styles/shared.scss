@@ -1,4 +1,4 @@
-@use 'breakpoints' as *;
+@use "breakpoints" as *;
 
 /** Font Size **/
 $font-xs: 0.85rem; // ~13.6px
@@ -22,19 +22,13 @@ $space-xl: $base-space * 8; // 2rem = 32px
   @if $level ==1 {
     font-size: $font-xl;
     color: var(--color-primary);
-  }
-
-  @else if $level ==2 {
+  } @else if $level ==2 {
     font-size: $font-l;
     color: var(--color-primary);
-  }
-
-  @else if $level ==3 {
+  } @else if $level ==3 {
     font-size: $font-m;
     color: var(--color-accent);
-  }
-
-  @else {
+  } @else {
     font-size: $font-s;
     color: var(--color-text);
   }
@@ -72,13 +66,9 @@ $space-xl: $base-space * 8; // 2rem = 32px
 @mixin hl-shadow($size: sm) {
   @if $size ==sm {
     box-shadow: var(--shadow-sm);
-  }
-
-  @else if $size ==md {
+  } @else if $size ==md {
     box-shadow: var(--shadow-md);
-  }
-
-  @else if $size ==lg {
+  } @else if $size ==lg {
     box-shadow: var(--shadow-lg);
   }
 }
@@ -111,7 +101,9 @@ $space-xl: $base-space * 8; // 2rem = 32px
 
   border-radius: 12px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
 
   user-select: none;
   cursor: pointer;
@@ -154,7 +146,9 @@ $space-xl: $base-space * 8; // 2rem = 32px
   color: var(--color-text);
 
   padding: 0.4rem 0.6rem;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 
   &:hover {
     border-color: var(--color-secondary);
@@ -238,15 +232,11 @@ $space-xl: $base-space * 8; // 2rem = 32px
     height: 32px;
     padding: 0 12px;
     font-size: 0.85rem;
-  }
-
-  @else if $size ==medium {
+  } @else if $size ==medium {
     height: 40px;
     padding: 0 16px;
     font-size: 0.95rem;
-  }
-
-  @else if $size ==large {
+  } @else if $size ==large {
     height: 48px;
     padding: 0 20px;
     font-size: 1rem;
@@ -268,9 +258,7 @@ $space-xl: $base-space * 8; // 2rem = 32px
       background-color: var(--color-secondary);
       box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
     }
-  }
-
-  @else if $type ==secondary {
+  } @else if $type ==secondary {
     background-color: var(--color-surface-dark);
     color: var(--color-text);
 
@@ -282,9 +270,7 @@ $space-xl: $base-space * 8; // 2rem = 32px
       background-color: var(--color-secondary);
       color: var(--color-surface);
     }
-  }
-
-  @else if $type ==outline {
+  } @else if $type ==outline {
     background-color: transparent;
     border: 1px solid var(--color-border);
     color: var(--color-text);
@@ -331,11 +317,22 @@ $space-xl: $base-space * 8; // 2rem = 32px
     background-color: var(--color-accent);
     color: var(--color-surface);
   }
-
 }
 
 @mixin hl-option_selected {
   font-weight: 700;
   background-color: var(--color-primary);
   color: var(--color-surface);
+}
+
+@mixin modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: $space-l;
+  z-index: 1000;
 }
