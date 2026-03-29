@@ -1,0 +1,11 @@
+@use "shared";
+
+.add {
+  @include shared.hl-btn(medium, secondary);
+
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 40px;
+  right: 40px;
+}
