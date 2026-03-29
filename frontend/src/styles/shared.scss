@@ -164,6 +164,7 @@ $space-xl: $base-space * 8; // 2rem = 32px
     border-color: var(--color-accent);
     outline: none;
     box-shadow: 0 0 4px rgba(39, 103, 73, 0.4);
+    transform: scale(1.02);
   }
 
   &::placeholder {

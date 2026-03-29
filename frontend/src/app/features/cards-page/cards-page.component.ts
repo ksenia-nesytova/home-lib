@@ -5,10 +5,16 @@ import { Card } from '@app/shared/models/Card';
 import { CardsFiltersComponent } from './cards-filters/cards-filters.component';
 import { CardFilters } from '@app/shared/models/CardsFilter';
 import { MediaEntityService } from '@app/core/services/media-entity.service';
+import { RelationshipType } from '@app/shared/enums/relationship-type';
+import { AddEntityBtnComponent } from '@app/shared/components/add-entity-btn/add-entity-btn.component';
 
 @Component({
   selector: 'app-cards-page',
-  imports: [CardsWrapperComponent, CardsFiltersComponent],
+  imports: [
+    CardsWrapperComponent,
+    CardsFiltersComponent,
+    AddEntityBtnComponent,
+  ],
   templateUrl: './cards-page.component.html',
   styleUrl: './cards-page.component.scss',
 })
@@ -18,6 +24,8 @@ export class CardsPageComponent implements OnInit {
   private entityService = inject(MediaEntityService);
 
   protected cards = signal<Card[]>([]);
+
+  protected isModalOpen = signal(false);
 
   ngOnInit() {
     this.populateMockCardsArray();
@@ -146,5 +154,9 @@ export class CardsPageComponent implements OnInit {
   protected applyFilters(filters: CardFilters) {
     console.log(filters, 111);
     const current = this.cards();
+  }
+
+  protected openAddCardModal() {
+    this.isModalOpen.set(true);
   }
 }
