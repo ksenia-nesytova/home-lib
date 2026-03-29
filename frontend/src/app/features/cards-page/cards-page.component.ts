@@ -7,6 +7,7 @@ import { CardFilters } from '@app/shared/models/CardsFilter';
 import { MediaEntityService } from '@app/core/services/media-entity.service';
 import { RelationshipType } from '@app/shared/enums/relationship-type';
 import { AddEntityBtnComponent } from '@app/shared/components/add-entity-btn/add-entity-btn.component';
+import { AddEntityModalComponent } from '@app/shared/components/add-entity-modal/add-entity-modal.component';
 
 @Component({
   selector: 'app-cards-page',
@@ -14,6 +15,7 @@ import { AddEntityBtnComponent } from '@app/shared/components/add-entity-btn/add
     CardsWrapperComponent,
     CardsFiltersComponent,
     AddEntityBtnComponent,
+    AddEntityModalComponent,
   ],
   templateUrl: './cards-page.component.html',
   styleUrl: './cards-page.component.scss',

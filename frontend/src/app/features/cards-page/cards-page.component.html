@@ -1,2 +1,8 @@
 <app-cards-filters (filtersChange)="applyFilters($event)" />
 <app-cards-wrapper [cards]="cards()" />
+
+<app-add-entity-btn (open)="openAddCardModal()" />
+
+@if (isModalOpen()) {
+  <app-add-entity-modal (close)="isModalOpen.set(false)" />
+}
