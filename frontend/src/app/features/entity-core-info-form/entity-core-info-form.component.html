@@ -1,0 +1,22 @@
+<div class="core-info">
+  <app-editable-field
+    [isActive]="true"
+    [placeholder]="'Title'"
+    [value]="title()"
+    (valueChange)="update('title', $event)"
+  />
+
+  <app-editable-field
+    [isActive]="true"
+    [placeholder]="'Author'"
+    [value]="author()"
+    (valueChange)="update('author', $event)"
+  />
+
+  <app-editable-select
+    [options]="mediaOptions"
+    [value]="mediaType()"
+    (valueChange)="update('mediaType', $event)"
+    [isEditingView]="true"
+  />
+</div>
