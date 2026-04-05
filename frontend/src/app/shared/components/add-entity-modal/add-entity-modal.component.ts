@@ -9,7 +9,7 @@ import {
 import { EntitySectionComponent } from '../entity-section/entity-section.component';
 import { EditableFieldComponent } from '../editable-field/editable-field.component';
 import { TagSelectorComponent } from '../tag-selector/tag-selector.component';
-import { TagListComponent } from '../tag-list/tag-list.component';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-add-entity-modal',
@@ -18,7 +18,7 @@ import { TagListComponent } from '../tag-list/tag-list.component';
     EntitySectionComponent,
     EditableFieldComponent,
     TagSelectorComponent,
-    TagListComponent,
+    MatIcon,
   ],
   templateUrl: './add-entity-modal.component.html',
   styleUrl: './add-entity-modal.component.scss',
