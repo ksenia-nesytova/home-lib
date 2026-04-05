@@ -1,15 +1,15 @@
 import { Entity, Column, JoinColumn, ManyToOne, ChildEntity, PrimaryColumn, OneToOne } from 'typeorm';
 import { Language } from './language.entity';
-import { HLEntity } from './hl-entity.entity';
+import { MediaEntity } from './media-entity.entity';
 
 @Entity('book_details')
 export class BookDetails {
     @PrimaryColumn('uuid')
     entitiesId: string;
 
-    @OneToOne(() => HLEntity, (entity) => entity.bookDetails)
-    @JoinColumn({ name: 'entities_id' })
-    entity: HLEntity;
+    // @OneToOne(() => MediaEntity, (entity) => entity.bookDetails)
+    // @JoinColumn({ name: 'entities_id' })
+    // entity: MediaEntity;
 
     @Column()
     author: string;

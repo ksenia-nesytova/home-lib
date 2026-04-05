@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestj
 import { MediaEntitiesService } from './media-entities.service';
 import { CreateEntityDto } from './dto/create-entity.dto';
 import { UpdateEntityDto } from './dto/update-entity.dto';
+import { SearchMediaEntityDto } from './dto/search-media-entity.dto';
 
 @Controller('media_entities')
 export class MediaEntitiesController {
@@ -13,10 +14,10 @@ export class MediaEntitiesController {
   }
 
   @Get()
-  // @Query() paginationQuery: { page: number; limit: number }
-  findAll() {
-    // const { page, limit } = paginationQuery;
-    return this.mediaEntitiesService.findAll();
+  findAll(
+    @Query() searchMediaEntityDto: SearchMediaEntityDto
+  ) {
+    return this.mediaEntitiesService.findAll(searchMediaEntityDto);
   }
 
   @Get(':id')
