@@ -1,14 +1,14 @@
 import { Component, output, signal } from '@angular/core';
-import { RelationshipQuestionCardComponent } from '../relationship-question-card/relationship-question-card.component';
+import { RelationshipQuestionCardComponent } from '@app/shared/components/relationship-question-card/relationship-question-card.component';
 import {
   AddEntitySteps,
   STEP_LABELS,
   STEP_ORDER,
   STEP_RELATIONSHIPS,
 } from './AddEntitySteps.enum';
-import { EntitySectionComponent } from '../entity-section/entity-section.component';
-import { EditableFieldComponent } from '../editable-field/editable-field.component';
-import { TagSelectorComponent } from '../tag-selector/tag-selector.component';
+import { EntitySectionComponent } from '@app/shared/components/entity-section/entity-section.component';
+import { EditableFieldComponent } from '@app/shared/components/editable-field/editable-field.component';
+import { TagSelectorComponent } from '@app/shared/components/tag-selector/tag-selector.component';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
