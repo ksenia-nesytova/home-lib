@@ -1,0 +1,7 @@
+@use "shared";
+
+.entity-section {
+  &__title {
+    @include shared.hl-heading(3);
+  }
+}
