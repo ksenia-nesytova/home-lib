@@ -67,13 +67,13 @@ export const RELATIONSHIP_CONFIG: Record<RelationshipType, RelationshipConfig> =
     [RelationshipType.EXPERIENCED_AT]: {
       label: 'Experienced at',
       question: 'Where did you first experience this?',
-      placeholder: 'Cinema "Great Cinema", Mom...',
+      placeholder: 'Cinema "Great Cinema", Dad...',
     },
 
     [RelationshipType.ACQUIRED_AT]: {
       label: 'Acquired at',
       question: 'Where did you acquire this?',
-      placeholder: 'Online Store, Mom...',
+      placeholder: 'Online Store, Sister...',
     },
 
     [RelationshipType.SIMILAR_TO]: {
