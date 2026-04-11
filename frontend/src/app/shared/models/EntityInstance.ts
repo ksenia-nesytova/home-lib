@@ -5,13 +5,6 @@ export interface EntityInstanceModel {
   workId: string; //instance of {id}
 
   /**
-   * Personal perception layer
-   */
-  tags: string[];
-  notes: string | null;
-  rating?: number;
-
-  /**
    * Space/Physicality
    * Information about the specific instance
    */
@@ -27,11 +20,17 @@ export interface EntityInstanceModel {
   coverImage?: string | null;
 
   /**
+   * Personal perception layer
+   */
+  tags: string[];
+  notes: string | null;
+  rating?: number;
+
+  /**
    * Experience
    */
-  acquiredAt?: string; //location
-  experiencedAt?: string; //location
-  experiencedEnd?: string; //or Date. "I've played Skyrim for 3 months straight"
+  acquiredFrom?: string; //| EntityId(add later) // where you got it:  location / store / online platform
+  acquiredFromEntityId?: string | null; //entity id
 
   relationships?: Relationship[];
 }
