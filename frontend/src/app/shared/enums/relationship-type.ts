@@ -74,12 +74,13 @@ export const RelationshipClusterByType: Record<
     RelationshipType.SIMILAR_TO,
   ],
 
+  // --- WHAT HAPPENED IN MY LIFE ---
   [RelationshipCluster.PROVENANCE]: [
     RelationshipType.GIFTED_BY,
     RelationshipType.ACQUIRED_FROM,
   ],
 
-  // --- NON-PERSONAL, FACTUAL ---
+  // --- NON-PERSONAL, DOCUMENTED, EXTERNAL ---
   [RelationshipCluster.STRUCTURAL]: [
     RelationshipType.INSPIRED_BY,
     RelationshipType.PART_OF,
