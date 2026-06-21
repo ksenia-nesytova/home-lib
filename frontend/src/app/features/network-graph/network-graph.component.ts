@@ -58,6 +58,12 @@ export class NetworkGraphComponent implements AfterViewInit {
   }
 
   private drawGraph(data: { nodes: Array<any>; links: Array<any> }): void {
+    const mediaX = this.width * 0.3;
+    const tagX = this.width * 0.7;
+
+    const mediaY = this.height * 0.45;
+    const tagY = this.height * 0.55;
+
     const simulation = d3
       .forceSimulation<Node>(data.nodes)
       .force(
@@ -67,8 +73,25 @@ export class NetworkGraphComponent implements AfterViewInit {
           .id((d) => d.id)
           .distance(120),
       )
-      .force('charge', d3.forceManyBody().strength(-250))
-      .force('center', d3.forceCenter(this.width / 2, this.height / 2));
+      .force('charge', d3.forceManyBody().strength(-180))
+      .force('center', d3.forceCenter(this.width / 2, this.height / 2))
+      .force(
+        'x',
+        d3
+          .forceX<Node>((d) => {
+            return d.type === 'media' ? mediaX : tagX;
+          })
+          .strength(0.8),
+      )
+
+      .force(
+        'y',
+        d3
+          .forceY<Node>((d) => {
+            return d.type === 'media' ? mediaY : tagY;
+          })
+          .strength(0.15),
+      );
 
     // Draw links (representing tags)
     const link = this.svg
