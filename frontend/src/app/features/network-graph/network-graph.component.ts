@@ -22,7 +22,7 @@ export class NetworkGraphComponent implements AfterViewInit {
   private width = 800;
   private height = 800;
 
-  private data = {
+  private data: { nodes: Node[]; links: Link[] } = {
     nodes: [
       { id: "Hugo's Hunchback of Notre Dame", type: 'media' },
       { id: 'Notre Dame de Paris', type: 'media' },
