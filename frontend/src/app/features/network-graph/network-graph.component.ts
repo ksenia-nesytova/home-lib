@@ -1,34 +1,30 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-import { Component, OnInit } from '@angular/core';
 import * as d3 from 'd3';
+import { AfterViewInit, Component } from '@angular/core';
 import { Selection, SimulationNodeDatum, SimulationLinkDatum } from 'd3';
 
 interface Node extends SimulationNodeDatum {
   id: string;
-  group: number;
+  type: 'media' | 'tag';
 }
 interface Link extends SimulationLinkDatum<Node> {
-  source: string | Node;
-  target: string | Node;
+  source: Node | string;
+  target: Node | string;
 }
 
 @Component({
   selector: 'app-network-graph',
   imports: [],
   templateUrl: './network-graph.component.html',
-  styleUrl: './network-graph.component.scss'
+  styleUrl: './network-graph.component.scss',
 })
-export class NetworkGraphComponent implements OnInit {
-
+export class NetworkGraphComponent implements AfterViewInit {
   private svg!: Selection<SVGSVGElement, unknown, HTMLElement, unknown>;
   private width = 800;
   private height = 800;
 
-
   private data = {
     nodes: [
-      { id: 'Hugo\'s Hunchback of Notre Dame', type: 'media' },
+      { id: "Hugo's Hunchback of Notre Dame", type: 'media' },
       { id: 'Notre Dame de Paris', type: 'media' },
       { id: 'Julius Caesar (Person)', type: 'media' },
       { id: 'Julius Caesar (Play)', type: 'media' },
@@ -36,21 +32,21 @@ export class NetworkGraphComponent implements OnInit {
     ],
     links: [
       // Links between media and tags
-      { source: 'Hugo\'s Hunchback of Notre Dame', target: 'Notre Dame de Paris' },
-      { source: 'Hugo\'s Hunchback of Notre Dame', target: 'Paris' },
+      {
+        source: "Hugo's Hunchback of Notre Dame",
+        target: 'Notre Dame de Paris',
+      },
+      { source: "Hugo's Hunchback of Notre Dame", target: 'Paris' },
       { source: 'Julius Caesar (Play)', target: 'Julius Caesar (Person)' },
       { source: 'Julius Caesar (Person)', target: 'Paris' },
       { source: 'Julius Caesar (Play)', target: 'Paris' },
     ],
   };
 
-
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.createSvg();
     this.drawGraph(this.data);
   }
-
-
 
   /* Create container for the graph */
   private createSvg(): void {
@@ -61,12 +57,17 @@ export class NetworkGraphComponent implements OnInit {
       .attr('height', this.height);
   }
 
-
   private drawGraph(data: { nodes: Array<any>; links: Array<any> }): void {
     const simulation = d3
-      .forceSimulation(data.nodes)
-      .force('link', d3.forceLink(data.links).id((d: any) => d.id))
-      .force('charge', d3.forceManyBody().strength(-200))
+      .forceSimulation<Node>(data.nodes)
+      .force(
+        'link',
+        d3
+          .forceLink<Node, Link>(data.links)
+          .id((d) => d.id)
+          .distance(120),
+      )
+      .force('charge', d3.forceManyBody().strength(-250))
       .force('center', d3.forceCenter(this.width / 2, this.height / 2));
 
     // Draw links (representing tags)
@@ -99,17 +100,33 @@ export class NetworkGraphComponent implements OnInit {
     // Update positions on tick
     simulation.on('tick', () => {
       link
-        .attr('x1', (d: any) => d.source.x)
-        .attr('y1', (d: any) => d.source.y)
-        .attr('x2', (d: any) => d.target.x)
-        .attr('y2', (d: any) => d.target.y);
+        .attr('x1', (d) => (d.source as Node).x!)
+        .attr('y1', (d) => (d.source as Node).y!)
+        .attr('x2', (d) => (d.target as Node).x!)
+        .attr('y2', (d) => (d.target as Node).y!);
 
-      node.attr('cx', (d: any) => d.x).attr('cy', (d: any) => d.y);
+      node.attr('cx', (d) => d.x!).attr('cy', (d) => d.y!);
 
-      label
-        .attr('x', (d: any) => d.x)
-        .attr('y', (d: any) => d.y);
+      label.attr('x', (d) => d.x! + 12).attr('y', (d) => d.y! + 4);
+
+      node.call(
+        d3
+          .drag<SVGCircleElement, Node>()
+          .on('start', (event, d) => {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+          })
+          .on('drag', (event, d) => {
+            d.fx = event.x;
+            d.fy = event.y;
+          })
+          .on('end', (event, d) => {
+            if (!event.active) simulation.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+          }),
+      );
     });
   }
 }
-
