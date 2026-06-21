@@ -2,7 +2,7 @@ import { Component, output, signal } from '@angular/core';
 import { EditableFieldComponent } from '@app/shared/components/editable-field/editable-field.component';
 import { EditableSelectComponent } from '@app/shared/components/editable-select/editable-select.component';
 import { MediaType } from '@app/shared/enums/media-type';
-import { Card } from '@app/shared/models/Card';
+import { CardViewModel } from '@app/shared/models/CardViewModel';
 
 @Component({
   selector: 'app-entity-core-info-form',
@@ -13,14 +13,14 @@ import { Card } from '@app/shared/models/Card';
 export class EntityCoreInfoFormComponent {
   protected readonly mediaOptions = Object.values(MediaType);
 
-  public valueChange = output<Partial<Card>>();
+  public valueChange = output<Partial<CardViewModel>>();
 
   // potentially convert into proper form
   protected title = signal('');
   protected author = signal('');
   protected mediaType = signal<MediaType | null>(null);
 
-  update(field: keyof Card, value: any) {
+  update(field: keyof CardViewModel, value: any) {
     if (field === 'title') this.title.set(value);
     if (field === 'author') this.author.set(value);
     if (field === 'mediaType') this.mediaType.set(value);

@@ -10,6 +10,8 @@ import { EntitySectionComponent } from '@app/shared/components/entity-section/en
 import { EditableFieldComponent } from '@app/shared/components/editable-field/editable-field.component';
 import { TagSelectorComponent } from '@app/shared/components/tag-selector/tag-selector.component';
 import { MatIcon } from '@angular/material/icon';
+import { EntityCoreInfoFormComponent } from '@app/features/entity-core-info-form/entity-core-info-form.component';
+import { CardViewModel } from '@app/shared/models/CardViewModel';
 
 @Component({
   selector: 'app-add-entity-modal',

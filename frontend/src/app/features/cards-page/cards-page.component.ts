@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CardsWrapperComponent } from '@app/shared/components/cards-wrapper/cards-wrapper.component';
 import { MediaType } from '@app/shared/enums/media-type';
-import { Card } from '@app/shared/models/Card';
+import { CardViewModel } from '@app/shared/models/CardViewModel';
 import { CardsFiltersComponent } from './cards-filters/cards-filters.component';
 import { CardFilters } from '@app/shared/models/CardsFilter';
 import { MediaEntityService } from '@app/core/services/media-entity.service';
@@ -25,7 +25,7 @@ export class CardsPageComponent implements OnInit {
 
   private entityService = inject(MediaEntityService);
 
-  protected cards = signal<Card[]>([]);
+  protected cards = signal<CardViewModel[]>([]);
 
   protected isModalOpen = signal(false);
 

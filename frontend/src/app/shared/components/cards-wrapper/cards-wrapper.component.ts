@@ -1,5 +1,5 @@
 import { Component, input, InputSignal } from '@angular/core';
-import { Card } from '@app/shared/models/Card';
+import { CardViewModel } from '@app/shared/models/CardViewModel';
 import { EntityCardComponent } from '../entity-card/entity-card.component';
 
 @Component({
@@ -9,5 +9,5 @@ import { EntityCardComponent } from '../entity-card/entity-card.component';
   styleUrl: './cards-wrapper.component.scss',
 })
 export class CardsWrapperComponent {
-  public cards = input<Card[]>([]);
+  public cards = input<CardViewModel[]>([]);
 }

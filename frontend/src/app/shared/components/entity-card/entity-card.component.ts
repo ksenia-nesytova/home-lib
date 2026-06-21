@@ -7,7 +7,7 @@ import {
   WritableSignal,
 } from '@angular/core';
 import { EditableFieldComponent } from '@app/shared/components/editable-field/editable-field.component';
-import { Card } from '@app/shared/models/Card';
+import { CardViewModel } from '@app/shared/models/CardViewModel';
 import { MediaType } from '@app/shared/enums/media-type';
 import { FormsModule } from '@angular/forms';
 import { EditableSelectComponent } from '@app/shared/components/editable-select/editable-select.component';
@@ -37,8 +37,8 @@ export class EntityCardComponent {
 
   public isEditable: InputSignal<boolean> = input(true);
 
-  public card = input.required<Card>();
-  readonly currentCard = signal<Partial<Card> | null>(null);
+  public card = input.required<CardViewModel>();
+  readonly currentCard = signal<Partial<CardViewModel> | null>(null);
 
   protected coverImage: WritableSignal<string> = signal(DEFAULT_IMAGE);
 
